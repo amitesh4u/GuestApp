@@ -9,7 +9,11 @@
         android:id="@+id/titleFragment"
         android:name="com.amitesh.guestapp.TitleFragment"
         android:label="@string/title_guest_app"
-        tools:layout="@layout/fragment_title" />
+        tools:layout="@layout/fragment_title">
+        <action
+            android:id="@+id/action_titleFragment_to_smartKeyFragment"
+            app:destination="@id/smartKeyFragment" />
+    </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.amitesh.guestapp.AboutFragment"
@@ -19,15 +23,30 @@
         android:id="@+id/smartKeyFragment"
         android:name="com.amitesh.guestapp.SmartKeyFragment"
         android:label="@string/title_smart_key"
-        tools:layout="@layout/fragment_smart_key" />
+        tools:layout="@layout/fragment_smart_key">
+        <action
+            android:id="@+id/action_smartKeyFragment_to_smartKeyCodeFragment"
+            app:destination="@id/smartKeyCodeFragment" />
+        <action
+            android:id="@+id/action_smartKeyFragment_to_smartKeyUsageFragment"
+            app:destination="@id/smartKeyUsageFragment" />
+    </fragment>
     <fragment
         android:id="@+id/smartKeyCodeFragment"
         android:name="com.amitesh.guestapp.SmartKeyCodeFragment"
         android:label="@string/title_smart_key_code"
-        tools:layout="@layout/fragment_smart_key_code" />
+        tools:layout="@layout/fragment_smart_key_code">
+        <action
+            android:id="@+id/action_smartKeyCodeFragment_to_smartKeyFragment2"
+            app:destination="@id/smartKeyFragment" />
+    </fragment>
     <fragment
         android:id="@+id/smartKeyUsageFragment"
         android:name="com.amitesh.guestapp.SmartKeyUsageFragment"
         android:label="@string/title_smart_key_usage"
-        tools:layout="@layout/fragment_smart_key_usage" />
+        tools:layout="@layout/fragment_smart_key_usage">
+        <action
+            android:id="@+id/action_smartKeyUsageFragment_to_smartKeyFragment"
+            app:destination="@id/smartKeyFragment" />
+    </fragment>
 </navigation>
