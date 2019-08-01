@@ -10,4 +10,8 @@
         android:name="com.amitesh.guestapp.TitleFragment"
         android:label="@string/title_guest_app"
         tools:layout="@layout/fragment_title" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.amitesh.guestapp.AboutFragment"
+        android:label="@string/title_about" />
 </navigation>

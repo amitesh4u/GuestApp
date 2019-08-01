@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">GuestApp</string>
     <string name="title_guest_app">Guest App</string>
+    <string name="menu_item_about">About</string>
+    <string name="title_about">About Guest App</string>
+    <string name="about_text">About the Guest App</string>
 </resources>
