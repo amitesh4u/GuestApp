@@ -1,7 +1,15 @@
 <resources>
     <string name="app_name">GuestApp</string>
-    <string name="title_guest_app">Guest App</string>
+    <!-- Menu Items -->
     <string name="menu_item_about">About</string>
+
+    <!-- Title of all pages (fragments) -->
+    <string name="title_guest_app">Guest App</string>
     <string name="title_about">About Guest App</string>
+    <string name="title_smart_key">Smart Key</string>
+    <string name="title_smart_key_code">Smart Key Code</string>
+    <string name="title_smart_key_usage">Smart Key Usage</string>
+
+    <!-- Text of About Me page -->
     <string name="about_text">About the Guest App</string>
 </resources>

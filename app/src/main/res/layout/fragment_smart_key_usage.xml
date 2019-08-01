@@ -1,0 +1,11 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".SmartKeyUsageFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/smartKeyUsageConstraint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"></androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
