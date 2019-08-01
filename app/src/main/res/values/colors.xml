@@ -6,6 +6,7 @@
 
     <!-- Custom Colors -->
     <color name="appRed">#E50000</color>
+    <color name="appDarkRed">#AC0000</color>
     <color name="appGreen">#23826F</color>
     <color name="appBlue">#006BA8</color>
     <color name="appGray">#E4E4E4</color>
