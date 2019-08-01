@@ -10,6 +10,13 @@
     <string name="title_smart_key_code">Smart Key Code</string>
     <string name="title_smart_key_usage">Smart Key Usage</string>
 
-    <!-- Text of About Me page -->
-    <string name="about_text">About the Guest App</string>
+    <!-- Elements of Title Page -->
+    <string name="button_smart_key">Smart Key</string>
+
+    <!-- Elements of Smart Key Page -->
+    <string name="button_smart_key_code">Generate Smart Key Code</string>
+    <string name="button_smart_key_usage">Show Smart Key Usage</string>
+
+    <!-- Elements of About Me page -->
+    <string name="text_about">About the Guest App</string>
 </resources>

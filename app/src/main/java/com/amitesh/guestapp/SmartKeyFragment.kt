@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.amitesh.guestapp.databinding.FragmentSmartKeyBinding
 
 
@@ -29,6 +30,22 @@ class SmartKeyFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentSmartKeyBinding>(
             inflater, R.layout.fragment_smart_key, container, false
         )
+
+        /* The complete onClickListener with Navigation using createNavigateOnClickListener.
+        Navigate through NavDirections i.e. SafeARgs
+        */
+        binding.smartKeyUsageButton.setOnClickListener(
+            Navigation.createNavigateOnClickListener(
+                SmartKeyFragmentDirections.actionSmartKeyFragmentToSmartKeyUsageFragment()
+            )
+        )
+
+        binding.smartKeyCodeButton.setOnClickListener(
+            Navigation.createNavigateOnClickListener(
+                SmartKeyFragmentDirections.actionSmartKeyFragmentToSmartKeyCodeFragment()
+            )
+        )
+
         return binding.root
     }
 

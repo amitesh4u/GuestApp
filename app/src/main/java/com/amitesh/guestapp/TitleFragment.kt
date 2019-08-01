@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.amitesh.guestapp.databinding.FragmentTitleBinding
@@ -27,6 +28,16 @@ class TitleFragment : Fragment() {
 
         //Tell Android that our Fragment has a menu
         setHasOptionsMenu(true)
+
+        /* The complete onClickListener with Navigation using createNavigateOnClickListener.
+        Navigate through NavDirections i.e. SafeARgs
+        */
+        binding.smartKeyButton.setOnClickListener(
+            Navigation.createNavigateOnClickListener(
+                TitleFragmentDirections.actionTitleFragmentToSmartKeyFragment()
+            )
+        )
+
 
         return binding.root
     }
