@@ -1,6 +1,4 @@
 <resources>
     <string name="app_name">GuestApp</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_guest_app">Guest App</string>
 </resources>
