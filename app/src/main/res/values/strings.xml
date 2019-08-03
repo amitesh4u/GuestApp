@@ -11,6 +11,16 @@
     <string name="title_smart_key_usage">Smart Key Usage</string>
 
     <!-- Elements of Title Page -->
+    <string name="welcome_text">Hello Amitesh!!</string>
+    <string name="label_rez_no">Reservation No:</string>
+    <string name="label_room_no">Room No:</string>
+    <string name="label_check_in">Check-In at:</string>
+    <string name="label_check_out">Check-Out at:</string>
+
+    <string name="button_new_rez">Create Reservation</string>
+    <string name="button_check_in">Check-In</string>
+    <string name="button_check_out">Check-Out</string>
+    <string name="button_change_room">Change Room</string>
     <string name="button_smart_key">Smart Key</string>
 
     <!-- Elements of Smart Key Page -->

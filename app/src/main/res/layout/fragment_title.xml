@@ -5,24 +5,167 @@
     tools:context=".TitleFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/titleConstraint"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="match_parent">
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineVertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.40" />
+
+        <TextView
+            android:id="@+id/welcomeText"
+            style="@style/HeaderTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome_text"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/rezLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/rezLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_rez_no"
+            app:layout_constraintBottom_toTopOf="@+id/roomLabel"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
+            app:layout_constraintHorizontal_bias=".9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/welcomeText" />
+
+        <TextView
+            android:id="@+id/rezText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            app:layout_constraintBaseline_toBaselineOf="@+id/rezLabel"
+            app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
+            tools:text="RezText" />
+
+        <TextView
+            android:id="@+id/roomLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_room_no"
+            app:layout_constraintBottom_toTopOf="@+id/checkInlabel"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
+            app:layout_constraintHorizontal_bias=".9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rezLabel" />
+
+        <TextView
+            android:id="@+id/roomText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBaseline_toBaselineOf="@+id/roomLabel"
+            app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
+            tools:text="RoomText" />
+
+        <TextView
+            android:id="@+id/checkInlabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_check_in"
+            app:layout_constraintBottom_toTopOf="@+id/checkOutLabel"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
+            app:layout_constraintHorizontal_bias=".9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/roomLabel" />
+
+        <TextView
+            android:id="@+id/checkIntext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBaseline_toBaselineOf="@+id/checkInlabel"
+            app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
+            tools:text="CheckInText" />
+
+        <TextView
+            android:id="@+id/checkOutLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_check_out"
+            app:layout_constraintBottom_toTopOf="@+id/newRezButton"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
+            app:layout_constraintHorizontal_bias=".9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkInlabel" />
+
+        <TextView
+            android:id="@+id/checkOutText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBaseline_toBaselineOf="@+id/checkOutLabel"
+            app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
+            tools:text="CheckOutText" />
+
+        <Button
+            android:id="@+id/newRezButton"
+            style="@style/ButtonTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/button_new_rez"
+            app:layout_constraintBottom_toTopOf="@+id/checkInButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkOutLabel" />
+
+        <Button
+            android:id="@+id/checkInButton"
+            style="@style/ButtonTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/button_check_in"
+            app:layout_constraintBottom_toTopOf="@+id/checkOutButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/newRezButton" />
+
+        <Button
+            android:id="@+id/checkOutButton"
+            style="@style/ButtonTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/button_check_out"
+            app:layout_constraintBottom_toTopOf="@+id/smartKeyButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkInButton" />
 
         <Button
             android:id="@+id/smartKeyButton"
             style="@style/ButtonTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
             android:text="@string/button_smart_key"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/checkOutButton" />
+
+        <!--<Button-->
+        <!--android:id="@+id/changeRoomButton"-->
+        <!--style="@style/ButtonTheme"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:text="@string/button_change_room"-->
+        <!--android:enabled="false"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
