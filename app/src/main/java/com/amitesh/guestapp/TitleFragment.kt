@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.amitesh.guestapp.databinding.FragmentTitleBinding
+import com.amitesh.guestapp.model.TitleViewModel
 
 
 /**
@@ -16,6 +18,13 @@ import com.amitesh.guestapp.databinding.FragmentTitleBinding
  *
  */
 class TitleFragment : Fragment() {
+
+    /**
+     * Lazily initialize our [TitleViewModel].
+     */
+    private val titleViewModel: TitleViewModel by lazy {
+        ViewModelProviders.of(this).get(TitleViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,6 +34,12 @@ class TitleFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentTitleBinding>(
             inflater, R.layout.fragment_title, container, false
         )
+
+        // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
+        binding.lifecycleOwner = this
+
+        // Giving the binding access to the OverviewViewModel
+        binding.titleViewModel = titleViewModel
 
         //Tell Android that our Fragment has a menu
         setHasOptionsMenu(true)
@@ -37,7 +52,6 @@ class TitleFragment : Fragment() {
                 TitleFragmentDirections.actionTitleFragmentToSmartKeyFragment()
             )
         )
-
 
         return binding.root
     }

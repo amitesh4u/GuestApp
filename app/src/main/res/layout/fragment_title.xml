@@ -4,6 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".TitleFragment">
 
+    <!-- Data to make available to the XML via data binding. In this case,
+    the whole ViewModel, so that we can access the LiveData,
+    click handlers, and state variables. -->
+    <data>
+
+        <variable
+            name="titleViewModel"
+            type="com.amitesh.guestapp.model.TitleViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -45,6 +55,7 @@
             android:layout_centerVertical="true"
             app:layout_constraintBaseline_toBaselineOf="@+id/rezLabel"
             app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
+            android:text="@{titleViewModel.currentRez.reservationNo}"
             tools:text="RezText" />
 
         <TextView
@@ -64,6 +75,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBaseline_toBaselineOf="@+id/roomLabel"
             app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
+            android:text="@{titleViewModel.currentRez.roomNo}"
             tools:text="RoomText" />
 
         <TextView
@@ -83,6 +95,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBaseline_toBaselineOf="@+id/checkInlabel"
             app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
+            android:text="@{titleViewModel.convertTimeToString(titleViewModel.currentRez.checkedInAt)}"
             tools:text="CheckInText" />
 
         <TextView
@@ -102,6 +115,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBaseline_toBaselineOf="@+id/checkOutLabel"
             app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
+            android:text="@{titleViewModel.convertTimeToString(titleViewModel.currentRez.checkedOutAt)}"
             tools:text="CheckOutText" />
 
         <Button
