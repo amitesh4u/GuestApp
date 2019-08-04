@@ -53,6 +53,26 @@ class TitleViewModel : ViewModel() {
     val createRezCallErrorStatusMessage: LiveData<String>
         get() = _createRezCallErrorStatusMessage
 
+    // The internal MutableLiveData that stores the error status message of Create Rez call request
+    private val _checkInRezCallErrorStatusMessage = MutableLiveData<String>()
+
+    // The external immutable LiveData for the request status
+    val checkInRezCallErrorStatusMessage: LiveData<String>
+        get() = _checkInRezCallErrorStatusMessage
+
+    // The internal MutableLiveData that stores the error status message of Create Rez call request
+    private val _checkOutRezCallErrorStatusMessage = MutableLiveData<String>()
+
+    // The external immutable LiveData for the request status
+    val checkOutRezCallErrorStatusMessage: LiveData<String>
+        get() = _checkOutRezCallErrorStatusMessage
+
+    // The internal MutableLiveData that stores the error status message of Create Rez call request
+    private val _changeRoomRezCallErrorStatusMessage = MutableLiveData<String>()
+
+    // The external immutable LiveData for the request status
+    val changeRoomRezCallErrorStatusMessage: LiveData<String>
+        get() = _changeRoomRezCallErrorStatusMessage
 
 
     // The internal MutableLiveData that stores the Current Reservation status of the Guest
@@ -75,7 +95,6 @@ class TitleViewModel : ViewModel() {
     // The external LiveData interface to the property is immutable, so only this class can modify
     val allRez: LiveData<List<GuestDetails>>
         get() = _allRez
-
 
     val newRezStatus: LiveData<Boolean> = Transformations.map(currentRezStatus) {
         currentRezStatus.value == ReservationStatus.NONE
@@ -139,6 +158,7 @@ class TitleViewModel : ViewModel() {
                 // this will run on a thread managed by Retrofit
                 _status.value = ApiStatus.DONE
                 _allRez.value = getAllRezDetailsDeferred
+                _statusMessage.value = "Reservation details fetched successfully!!"
                 updateCurrentRez()
             } catch (e: Exception) {
                 _status.value = ApiStatus.ERROR
@@ -161,14 +181,97 @@ class TitleViewModel : ViewModel() {
             try {
                 _status.value = ApiStatus.LOADING
                 // Get the Deferred object for our Retrofit request
-                val getCreateRezDeferred = GuestAppApi.retrofitService.createReservation(profileId)
+                val getRezDeferred = GuestAppApi.retrofitService.createReservation(profileId)
                 // this will run on a thread managed by Retrofit
                 _status.value = ApiStatus.DONE
-                _allRez.value = arrayListOf(getCreateRezDeferred)
+                _allRez.value = arrayListOf(getRezDeferred)
+                _statusMessage.value = "Reservation created successfully!!"
                 updateCurrentRez()
             } catch (e: Exception) {
                 _status.value = ApiStatus.ERROR
                 _createRezCallErrorStatusMessage.value = "Error Creating Reservation."
+            }
+        }
+    }
+
+    fun checkInReservation() {
+        checkInReservation(_currentRez.value!!.reservationNo)
+    }
+
+    /**
+     * Check In New Reservation and updates the [GuestDetails] and [ApiStatus] [LiveData].
+     * The Retrofit service returns a coroutine Deferred, which we await to get the result of the transaction.
+     */
+    private fun checkInReservation(reservationNo: String) {
+        _checkInRezCallErrorStatusMessage.value = null
+        uiScope.launch {
+            try {
+                _status.value = ApiStatus.LOADING
+                // Get the Deferred object for our Retrofit request
+                val getRezDeferred = GuestAppApi.retrofitService.checkInReservation(reservationNo)
+                // this will run on a thread managed by Retrofit
+                _status.value = ApiStatus.DONE
+                _allRez.value = arrayListOf(getRezDeferred)
+                _statusMessage.value = "Reservation Checked-In successfully!!"
+                updateCurrentRez()
+            } catch (e: Exception) {
+                _status.value = ApiStatus.ERROR
+                _checkInRezCallErrorStatusMessage.value = "Error Checking In Reservation."
+            }
+        }
+    }
+
+    fun checkOutReservation() {
+        checkOutReservation(_currentRez.value!!.reservationNo)
+    }
+
+    /**
+     * Check Out New Reservation and updates the [GuestDetails] and [ApiStatus] [LiveData].
+     * The Retrofit service returns a coroutine Deferred, which we await to get the result of the transaction.
+     */
+    private fun checkOutReservation(reservationNo: String) {
+        _checkOutRezCallErrorStatusMessage.value = null
+        uiScope.launch {
+            try {
+                _status.value = ApiStatus.LOADING
+                // Get the Deferred object for our Retrofit request
+                val getRezDeferred = GuestAppApi.retrofitService.checkOutReservation(reservationNo)
+                // this will run on a thread managed by Retrofit
+                _status.value = ApiStatus.DONE
+                _allRez.value = arrayListOf(getRezDeferred)
+                _statusMessage.value = "Reservation Checked-Out successfully!!"
+                updateCurrentRez()
+            } catch (e: Exception) {
+                _status.value = ApiStatus.ERROR
+                _checkOutRezCallErrorStatusMessage.value = "Error Checking Out Reservation."
+            }
+        }
+    }
+
+    fun changeRoomOfReservation() {
+        changeRoomOfReservation(_currentRez.value!!.reservationNo)
+    }
+
+    /**
+     * Change Room of Reservation and updates the [GuestDetails] and [ApiStatus] [LiveData].
+     * The Retrofit service returns a coroutine Deferred, which we await to get the result of the transaction.
+     */
+    private fun changeRoomOfReservation(reservationNo: String) {
+        _changeRoomRezCallErrorStatusMessage.value = null
+        uiScope.launch {
+            try {
+                _status.value = ApiStatus.LOADING
+                // Get the Deferred object for our Retrofit request
+                val getRezDeferred = GuestAppApi.retrofitService.changeRoomOfReservation(reservationNo)
+                // this will run on a thread managed by Retrofit
+                _status.value = ApiStatus.DONE
+                _allRez.value = arrayListOf(getRezDeferred)
+                _statusMessage.value =
+                    "Room no changed successfully from " + _currentRez.value!!.roomNo + " to " + getRezDeferred.roomNo
+                updateCurrentRez()
+            } catch (e: Exception) {
+                _status.value = ApiStatus.ERROR
+                _changeRoomRezCallErrorStatusMessage.value = "Error Changing Room of Reservation."
             }
         }
     }
@@ -196,7 +299,6 @@ class TitleViewModel : ViewModel() {
                 }
             }
         }
-        _statusMessage.value = "Details fetched successfully!!"
         Log.i("Rez status", _currentRezStatus.value.toString())
         Log.i("Current Rez", _currentRez.value.toString())
 

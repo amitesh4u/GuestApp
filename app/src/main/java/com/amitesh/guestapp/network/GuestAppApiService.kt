@@ -48,6 +48,16 @@ interface GuestAppApiService {
 
     @GET("profile/{profileId}/reservation/create")
     suspend fun createReservation(@Path("profileId") profileId: String): GuestDetails
+
+    @GET("reservation/{reservationNo}/checkin")
+    suspend fun checkInReservation(@Path("reservationNo") reservationNo: String): GuestDetails
+
+    @GET("reservation/{reservationNo}/checkout")
+    suspend fun checkOutReservation(@Path("reservationNo") reservationNo: String): GuestDetails
+
+    @GET("reservation/{reservationNo}/changeroom")
+    suspend fun changeRoomOfReservation(@Path("reservationNo") reservationNo: String): GuestDetails
+
 }
 
 /**

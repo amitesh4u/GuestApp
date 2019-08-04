@@ -18,21 +18,36 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="@style/MyProgressBarRectangle"
-            android:layout_width="168dp"
-            android:layout_height="148dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+        <FrameLayout
+            android:id="@+id/progress_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:translationZ="10dp"
             android:visibility="@{safeUnbox(titleViewModel.progressBarStatus)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/welcomeText" />
+            app:layout_constraintTop_toBottomOf="@+id/welcomeText"
+            tools:visibility="gone">
 
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="@style/MyProgressBarRectangle"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:alpha="1.0"
+                android:indeterminate="true"
+                android:translationZ="16dp" />
+
+        </FrameLayout>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineVertical"
@@ -70,10 +85,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            app:layout_constraintBaseline_toBaselineOf="@+id/rezLabel"
-            app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
             android:text="@{titleViewModel.currentRez.reservationNo}"
             android:visibility="@{safeUnbox(titleViewModel.activeStatus)}"
+            app:layout_constraintBaseline_toBaselineOf="@+id/rezLabel"
+            app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
             tools:text="RezText" />
 
         <TextView
@@ -92,11 +107,24 @@
             android:id="@+id/roomText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBaseline_toBaselineOf="@+id/roomLabel"
-            app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
             android:text="@{titleViewModel.currentRez.roomNo}"
             android:visibility="@{safeUnbox(titleViewModel.inHouseStatus)}"
+            app:layout_constraintBaseline_toBaselineOf="@+id/roomLabel"
+            app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
             tools:text="RoomText" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/changeRoomImg"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="20dp"
+            android:baselineAlignBottom="true"
+            android:onClick="@{() -> titleViewModel.changeRoomOfReservation()}"
+            android:src="@drawable/ic_refresh"
+            android:visibility="@{safeUnbox(titleViewModel.inHouseStatus)}"
+            app:layout_constraintBottom_toBottomOf="@id/roomText"
+            app:layout_constraintStart_toEndOf="@+id/roomText"
+            app:layout_constraintTop_toTopOf="@id/roomText" />
 
         <TextView
             android:id="@+id/checkInlabel"
@@ -114,10 +142,10 @@
             android:id="@+id/checkIntext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBaseline_toBaselineOf="@+id/checkInlabel"
-            app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
             android:text="@{titleViewModel.convertTimeToString(safeUnbox(titleViewModel.currentRez.checkedInAt))}"
             android:visibility="@{safeUnbox(titleViewModel.inHouseStatus)}"
+            app:layout_constraintBaseline_toBaselineOf="@+id/checkInlabel"
+            app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
             tools:text="CheckInText" />
 
         <TextView
@@ -136,10 +164,10 @@
             android:id="@+id/checkOutText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBaseline_toBaselineOf="@+id/checkOutLabel"
-            app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
             android:text="@{titleViewModel.convertTimeToString(safeUnbox(titleViewModel.currentRez.checkedOutAt))}"
             android:visibility="@{safeUnbox(titleViewModel.inHouseStatus)}"
+            app:layout_constraintBaseline_toBaselineOf="@+id/checkOutLabel"
+            app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
             tools:text="CheckOutText" />
 
         <Button
@@ -148,9 +176,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
+            android:onClick="@{() -> titleViewModel.createNewReservation()}"
             android:text="@string/button_new_rez"
             android:visibility="@{safeUnbox(titleViewModel.newRezStatus)}"
-            android:onClick="@{() -> titleViewModel.createNewReservation()}"
             app:layout_constraintBottom_toTopOf="@+id/checkInButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -162,6 +190,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
+            android:onClick="@{() -> titleViewModel.checkInReservation()}"
             android:text="@string/button_check_in"
             android:visibility="@{safeUnbox(titleViewModel.arrivingStatus)}"
             app:layout_constraintBottom_toTopOf="@+id/checkOutButton"
@@ -175,6 +204,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
+            android:onClick="@{() -> titleViewModel.checkOutReservation()}"
             android:text="@string/button_check_out"
             android:visibility="@{safeUnbox(titleViewModel.inHouseStatus)}"
             app:layout_constraintBottom_toTopOf="@+id/smartKeyButton"
@@ -194,6 +224,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/checkOutButton" />
+
 
         <!--<Button-->
         <!--android:id="@+id/changeRoomButton"-->

@@ -15,6 +15,7 @@ import com.amitesh.guestapp.databinding.FragmentTitleBinding
 import com.amitesh.guestapp.model.TitleViewModel
 import com.google.android.material.snackbar.Snackbar
 
+const val TRY_AGAIN = "Try Again!!"
 
 /**
  * A simple [Fragment] subclass.
@@ -65,37 +66,16 @@ class TitleFragment : Fragment() {
         // Add an Observer on the state variable for showing a Snackbar message for Error while creating new Rez
         addCreateRezApiCallErrorMessageObserver()
 
+        // Add an Observer on the state variable for showing a Snackbar message for Error while checking in new Rez
+        addCheckInRezApiCallErrorMessageObserver()
+
+        // Add an Observer on the state variable for showing a Snackbar message for Error while checking out new Rez
+        addCheckOutRezApiCallErrorMessageObserver()
+
+        // Add an Observer on the state variable for showing a Snackbar message for Error while changing room of Rez
+        addChangeRoomOfRezApiCallErrorMessageObserver()
+
         return binding.root
-    }
-
-    private fun addAllRezApiCallErrorMessageObserver() {
-        titleViewModel.allRezCallErrorStatusMessage.observe(this, Observer {
-            if (!TextUtils.isEmpty(it)) { // Observed state is true.
-                Snackbar.make(
-                    activity!!.findViewById(android.R.id.content),
-                    it,
-                    Snackbar.LENGTH_INDEFINITE
-                ).setAction("Try Again") {
-                    // Call action functions here
-                    titleViewModel.fetchRezDetails()
-                }.show()
-            }
-        })
-    }
-
-    private fun addCreateRezApiCallErrorMessageObserver() {
-        titleViewModel.createRezCallErrorStatusMessage.observe(this, Observer {
-            if (!TextUtils.isEmpty(it)) { // Observed state is true.
-                Snackbar.make(
-                    activity!!.findViewById(android.R.id.content),
-                    it,
-                    Snackbar.LENGTH_INDEFINITE
-                ).setAction("Try Again") {
-                    // Call action functions here
-                    titleViewModel.createNewReservation()
-                }.show()
-            }
-        })
     }
 
     private fun addStatusMessageObserver() {
@@ -110,6 +90,81 @@ class TitleFragment : Fragment() {
                 // Reset state to make sure the snackbar is only shown once, even if the device
                 // has a configuration change.
                 titleViewModel.doneShowingSnackbar()
+            }
+        })
+    }
+
+    private fun addAllRezApiCallErrorMessageObserver() {
+        titleViewModel.allRezCallErrorStatusMessage.observe(this, Observer {
+            if (!TextUtils.isEmpty(it)) { // Observed state is true.
+                Snackbar.make(
+                    activity!!.findViewById(android.R.id.content),
+                    it,
+                    Snackbar.LENGTH_INDEFINITE
+                ).setAction(TRY_AGAIN) {
+                    // Call action functions here
+                    titleViewModel.fetchRezDetails()
+                }.show()
+            }
+        })
+    }
+
+    private fun addCreateRezApiCallErrorMessageObserver() {
+        titleViewModel.createRezCallErrorStatusMessage.observe(this, Observer {
+            if (!TextUtils.isEmpty(it)) { // Observed state is true.
+                Snackbar.make(
+                    activity!!.findViewById(android.R.id.content),
+                    it,
+                    Snackbar.LENGTH_INDEFINITE
+                ).setAction(TRY_AGAIN) {
+                    // Call action functions here
+                    titleViewModel.createNewReservation()
+                }.show()
+            }
+        })
+    }
+
+    private fun addCheckInRezApiCallErrorMessageObserver() {
+        titleViewModel.checkInRezCallErrorStatusMessage.observe(this, Observer {
+            if (!TextUtils.isEmpty(it)) { // Observed state is true.
+                Snackbar.make(
+                    activity!!.findViewById(android.R.id.content),
+                    it,
+                    Snackbar.LENGTH_INDEFINITE
+                ).setAction(TRY_AGAIN) {
+                    // Call action functions here
+                    titleViewModel.checkInReservation()
+                }.show()
+            }
+        })
+    }
+
+    private fun addCheckOutRezApiCallErrorMessageObserver() {
+        titleViewModel.checkOutRezCallErrorStatusMessage.observe(this, Observer {
+            if (!TextUtils.isEmpty(it)) { // Observed state is true.
+                Snackbar.make(
+                    activity!!.findViewById(android.R.id.content),
+                    it,
+                    Snackbar.LENGTH_INDEFINITE
+                ).setAction(TRY_AGAIN) {
+                    // Call action functions here
+                    titleViewModel.checkOutReservation()
+                }.show()
+            }
+        })
+    }
+
+    private fun addChangeRoomOfRezApiCallErrorMessageObserver() {
+        titleViewModel.changeRoomRezCallErrorStatusMessage.observe(this, Observer {
+            if (!TextUtils.isEmpty(it)) { // Observed state is true.
+                Snackbar.make(
+                    activity!!.findViewById(android.R.id.content),
+                    it,
+                    Snackbar.LENGTH_INDEFINITE
+                ).setAction(TRY_AGAIN) {
+                    // Call action functions here
+                    titleViewModel.changeRoomOfReservation()
+                }.show()
             }
         })
     }
