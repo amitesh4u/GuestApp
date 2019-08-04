@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.50" />
+            app:layout_constraintGuide_percent="0.45" />
 
         <TextView
             android:id="@+id/welcomeText"
@@ -70,6 +70,7 @@
 
         <TextView
             android:id="@+id/rezLabel"
+            style="@style/LabelTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_rez_no"
@@ -82,6 +83,7 @@
 
         <TextView
             android:id="@+id/rezText"
+            style="@style/TextTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -93,6 +95,7 @@
 
         <TextView
             android:id="@+id/roomLabel"
+            style="@style/LabelTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_room_no"
@@ -105,6 +108,7 @@
 
         <TextView
             android:id="@+id/roomText"
+            style="@style/TextTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{titleViewModel.currentRez.roomNo}"
@@ -128,6 +132,7 @@
 
         <TextView
             android:id="@+id/checkInlabel"
+            style="@style/LabelTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_check_in"
@@ -140,6 +145,7 @@
 
         <TextView
             android:id="@+id/checkIntext"
+            style="@style/TextTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{titleViewModel.convertTimeToString(safeUnbox(titleViewModel.currentRez.checkedInAt))}"
@@ -150,6 +156,7 @@
 
         <TextView
             android:id="@+id/checkOutLabel"
+            style="@style/LabelTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_check_out"
@@ -162,6 +169,7 @@
 
         <TextView
             android:id="@+id/checkOutText"
+            style="@style/TextTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{titleViewModel.convertTimeToString(safeUnbox(titleViewModel.currentRez.checkedOutAt))}"
@@ -175,7 +183,6 @@
             style="@style/ButtonTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:onClick="@{() -> titleViewModel.createNewReservation()}"
             android:text="@string/button_new_rez"
             android:visibility="@{safeUnbox(titleViewModel.newRezStatus)}"
@@ -189,7 +196,6 @@
             style="@style/ButtonTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:onClick="@{() -> titleViewModel.checkInReservation()}"
             android:text="@string/button_check_in"
             android:visibility="@{safeUnbox(titleViewModel.arrivingStatus)}"
@@ -203,7 +209,6 @@
             style="@style/ButtonTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:onClick="@{() -> titleViewModel.checkOutReservation()}"
             android:text="@string/button_check_out"
             android:visibility="@{safeUnbox(titleViewModel.inHouseStatus)}"
@@ -217,7 +222,6 @@
             style="@style/ButtonTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:text="@string/button_smart_key"
             android:visibility="@{safeUnbox(titleViewModel.inHouseStatus)}"
             app:layout_constraintBottom_toBottomOf="parent"
