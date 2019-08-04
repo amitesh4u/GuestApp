@@ -18,12 +18,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@style/MyProgressBarRectangle"
+            android:layout_width="168dp"
+            android:layout_height="148dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="@{safeUnbox(titleViewModel.progressBarStatus)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/welcomeText" />
+
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineVertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.40" />
+            app:layout_constraintGuide_percent="0.50" />
 
         <TextView
             android:id="@+id/welcomeText"
@@ -42,6 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_rez_no"
+            android:visibility="@{safeUnbox(titleViewModel.activeStatus)}"
             app:layout_constraintBottom_toTopOf="@+id/roomLabel"
             app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
             app:layout_constraintHorizontal_bias=".9"
@@ -56,6 +73,7 @@
             app:layout_constraintBaseline_toBaselineOf="@+id/rezLabel"
             app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
             android:text="@{titleViewModel.currentRez.reservationNo}"
+            android:visibility="@{safeUnbox(titleViewModel.activeStatus)}"
             tools:text="RezText" />
 
         <TextView
@@ -63,6 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_room_no"
+            android:visibility="@{safeUnbox(titleViewModel.inHouseStatus)}"
             app:layout_constraintBottom_toTopOf="@+id/checkInlabel"
             app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
             app:layout_constraintHorizontal_bias=".9"
@@ -76,6 +95,7 @@
             app:layout_constraintBaseline_toBaselineOf="@+id/roomLabel"
             app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
             android:text="@{titleViewModel.currentRez.roomNo}"
+            android:visibility="@{safeUnbox(titleViewModel.inHouseStatus)}"
             tools:text="RoomText" />
 
         <TextView
@@ -83,6 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_check_in"
+            android:visibility="@{safeUnbox(titleViewModel.inHouseStatus)}"
             app:layout_constraintBottom_toTopOf="@+id/checkOutLabel"
             app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
             app:layout_constraintHorizontal_bias=".9"
@@ -95,7 +116,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintBaseline_toBaselineOf="@+id/checkInlabel"
             app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
-            android:text="@{titleViewModel.convertTimeToString(titleViewModel.currentRez.checkedInAt)}"
+            android:text="@{titleViewModel.convertTimeToString(safeUnbox(titleViewModel.currentRez.checkedInAt))}"
+            android:visibility="@{safeUnbox(titleViewModel.inHouseStatus)}"
             tools:text="CheckInText" />
 
         <TextView
@@ -103,6 +125,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_check_out"
+            android:visibility="@{safeUnbox(titleViewModel.inHouseStatus)}"
             app:layout_constraintBottom_toTopOf="@+id/newRezButton"
             app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
             app:layout_constraintHorizontal_bias=".9"
@@ -115,7 +138,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintBaseline_toBaselineOf="@+id/checkOutLabel"
             app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
-            android:text="@{titleViewModel.convertTimeToString(titleViewModel.currentRez.checkedOutAt)}"
+            android:text="@{titleViewModel.convertTimeToString(safeUnbox(titleViewModel.currentRez.checkedOutAt))}"
+            android:visibility="@{safeUnbox(titleViewModel.inHouseStatus)}"
             tools:text="CheckOutText" />
 
         <Button
@@ -125,6 +149,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="@string/button_new_rez"
+            android:visibility="@{safeUnbox(titleViewModel.newRezStatus)}"
             app:layout_constraintBottom_toTopOf="@+id/checkInButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -137,6 +162,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="@string/button_check_in"
+            android:visibility="@{safeUnbox(titleViewModel.arrivingStatus)}"
             app:layout_constraintBottom_toTopOf="@+id/checkOutButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -149,6 +175,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="@string/button_check_out"
+            android:visibility="@{safeUnbox(titleViewModel.inHouseStatus)}"
             app:layout_constraintBottom_toTopOf="@+id/smartKeyButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -161,6 +188,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="@string/button_smart_key"
+            android:visibility="@{safeUnbox(titleViewModel.inHouseStatus)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

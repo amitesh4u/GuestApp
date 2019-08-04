@@ -2,15 +2,19 @@ package com.amitesh.guestapp
 
 
 import android.os.Bundle
+import android.text.TextUtils
+import android.util.Log
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.amitesh.guestapp.databinding.FragmentTitleBinding
 import com.amitesh.guestapp.model.TitleViewModel
+import com.google.android.material.snackbar.Snackbar
 
 
 /**
@@ -35,11 +39,12 @@ class TitleFragment : Fragment() {
             inflater, R.layout.fragment_title, container, false
         )
 
+        // Giving the binding access to the OverviewViewModel
+        binding.titleViewModel = titleViewModel
+
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
         binding.lifecycleOwner = this
 
-        // Giving the binding access to the OverviewViewModel
-        binding.titleViewModel = titleViewModel
 
         //Tell Android that our Fragment has a menu
         setHasOptionsMenu(true)
@@ -52,6 +57,22 @@ class TitleFragment : Fragment() {
                 TitleFragmentDirections.actionTitleFragmentToSmartKeyFragment()
             )
         )
+
+        // Add an Observer on the state variable for showing a Snackbar message
+        // when the CLEAR button is pressed.
+        titleViewModel.statusMessage.observe(this, Observer {
+            if (!TextUtils.isEmpty(it)) { // Observed state is true.
+                Log.i("Status Message", it ?: "")
+                Snackbar.make(
+                    activity!!.findViewById(android.R.id.content),
+                    it,
+                    Snackbar.LENGTH_INDEFINITE
+                ).setAction("Try Again") {
+                    // Call action functions here
+                    titleViewModel.fetchRezDetails()
+                }.show()
+            }
+        })
 
         return binding.root
     }

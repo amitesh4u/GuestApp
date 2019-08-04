@@ -22,4 +22,10 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textAllCaps">true</item>
     </style>
+
+    <style name="MyProgressBarRectangle" parent="@style/Widget.AppCompat.ProgressBar">
+        <item name="android:indeterminateDrawable">@drawable/android_progressbar_oval</item>
+        <item name="android:minHeight">50dp</item>
+        <item name="android:minWidth">150dp</item>
+    </style>
 </resources>
