@@ -28,15 +28,31 @@ class TitleViewModel : ViewModel() {
     private val _status = MutableLiveData<ApiStatus>()
 
     // The external immutable LiveData for the request status
-    val status: LiveData<ApiStatus>
+    private val status: LiveData<ApiStatus>
         get() = _status
 
-    // The internal MutableLiveData that stores the status of the most recent request
+    // The internal MutableLiveData that stores the success status message of the most recent request
     private val _statusMessage = MutableLiveData<String>()
 
     // The external immutable LiveData for the request status
     val statusMessage: LiveData<String>
         get() = _statusMessage
+
+
+    // The internal MutableLiveData that stores the error status message of the All Rez call request
+    private val _allRezCallErrorStatusMessage = MutableLiveData<String>()
+
+    // The external immutable LiveData for the request status
+    val allRezCallErrorStatusMessage: LiveData<String>
+        get() = _allRezCallErrorStatusMessage
+
+    // The internal MutableLiveData that stores the error status message of Create Rez call request
+    private val _createRezCallErrorStatusMessage = MutableLiveData<String>()
+
+    // The external immutable LiveData for the request status
+    val createRezCallErrorStatusMessage: LiveData<String>
+        get() = _createRezCallErrorStatusMessage
+
 
 
     // The internal MutableLiveData that stores the Current Reservation status of the Guest
@@ -101,21 +117,20 @@ class TitleViewModel : ViewModel() {
      * Call getInhouseRezDetails() on init so we can display status immediately.
      */
     init {
-        //_currentRez.value = null
-        getRezDetails(PROFILE_ID)
+        fetchRezDetails()
     }
 
     fun fetchRezDetails() {
-        doneShowingSnackbar()
         getRezDetails(PROFILE_ID)
     }
 
     /**
-     * Gets Inhouse Reservation Details from the API Retrofit service and
+     * Gets All Reservation Details from the API Retrofit service and
      * updates the [GuestDetails] and [ApiStatus] [LiveData]. The Retrofit service
      * returns a coroutine Deferred, which we await to get the result of the transaction.
      */
     private fun getRezDetails(profileId: String) {
+        _allRezCallErrorStatusMessage.value = null
         uiScope.launch {
             try {
                 _status.value = ApiStatus.LOADING
@@ -127,7 +142,33 @@ class TitleViewModel : ViewModel() {
                 updateCurrentRez()
             } catch (e: Exception) {
                 _status.value = ApiStatus.ERROR
-                _statusMessage.value = "Error Fetching Reservation details."
+                _allRezCallErrorStatusMessage.value = "Error Fetching Reservation details."
+            }
+        }
+    }
+
+    fun createNewReservation() {
+        createReservation(PROFILE_ID)
+    }
+
+    /**
+     * Create a New Reservation and updates the [GuestDetails] and [ApiStatus] [LiveData].
+     * The Retrofit service returns a coroutine Deferred, which we await to get the result of the transaction.
+     */
+    private fun createReservation(profileId: String) {
+        _createRezCallErrorStatusMessage.value = null
+        uiScope.launch {
+            try {
+                _status.value = ApiStatus.LOADING
+                // Get the Deferred object for our Retrofit request
+                val getCreateRezDeferred = GuestAppApi.retrofitService.createReservation(profileId)
+                // this will run on a thread managed by Retrofit
+                _status.value = ApiStatus.DONE
+                _allRez.value = arrayListOf(getCreateRezDeferred)
+                updateCurrentRez()
+            } catch (e: Exception) {
+                _status.value = ApiStatus.ERROR
+                _createRezCallErrorStatusMessage.value = "Error Creating Reservation."
             }
         }
     }
@@ -155,6 +196,7 @@ class TitleViewModel : ViewModel() {
                 }
             }
         }
+        _statusMessage.value = "Details fetched successfully!!"
         Log.i("Rez status", _currentRezStatus.value.toString())
         Log.i("Current Rez", _currentRez.value.toString())
 

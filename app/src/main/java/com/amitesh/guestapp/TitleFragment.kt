@@ -3,7 +3,6 @@ package com.amitesh.guestapp
 
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -45,7 +44,6 @@ class TitleFragment : Fragment() {
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
         binding.lifecycleOwner = this
 
-
         //Tell Android that our Fragment has a menu
         setHasOptionsMenu(true)
 
@@ -59,10 +57,20 @@ class TitleFragment : Fragment() {
         )
 
         // Add an Observer on the state variable for showing a Snackbar message
-        // when the CLEAR button is pressed.
-        titleViewModel.statusMessage.observe(this, Observer {
+        addStatusMessageObserver()
+
+        // Add an Observer on the state variable for showing a Snackbar message for Error while fetching Rez details
+        addAllRezApiCallErrorMessageObserver()
+
+        // Add an Observer on the state variable for showing a Snackbar message for Error while creating new Rez
+        addCreateRezApiCallErrorMessageObserver()
+
+        return binding.root
+    }
+
+    private fun addAllRezApiCallErrorMessageObserver() {
+        titleViewModel.allRezCallErrorStatusMessage.observe(this, Observer {
             if (!TextUtils.isEmpty(it)) { // Observed state is true.
-                Log.i("Status Message", it ?: "")
                 Snackbar.make(
                     activity!!.findViewById(android.R.id.content),
                     it,
@@ -73,8 +81,37 @@ class TitleFragment : Fragment() {
                 }.show()
             }
         })
+    }
 
-        return binding.root
+    private fun addCreateRezApiCallErrorMessageObserver() {
+        titleViewModel.createRezCallErrorStatusMessage.observe(this, Observer {
+            if (!TextUtils.isEmpty(it)) { // Observed state is true.
+                Snackbar.make(
+                    activity!!.findViewById(android.R.id.content),
+                    it,
+                    Snackbar.LENGTH_INDEFINITE
+                ).setAction("Try Again") {
+                    // Call action functions here
+                    titleViewModel.createNewReservation()
+                }.show()
+            }
+        })
+    }
+
+    private fun addStatusMessageObserver() {
+        titleViewModel.statusMessage.observe(this, Observer {
+            if (!TextUtils.isEmpty(it)) { // Observed state is true.
+                Snackbar.make(
+                    activity!!.findViewById(android.R.id.content),
+                    it,
+                    Snackbar.LENGTH_LONG
+                ).show()
+
+                // Reset state to make sure the snackbar is only shown once, even if the device
+                // has a configuration change.
+                titleViewModel.doneShowingSnackbar()
+            }
+        })
     }
 
 

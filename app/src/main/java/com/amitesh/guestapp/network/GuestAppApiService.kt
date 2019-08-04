@@ -45,6 +45,9 @@ interface GuestAppApiService {
 
     @GET("profile/{profileId}/reservation/all")
     suspend fun allReservations(@Path("profileId") profileId: String): List<GuestDetails>
+
+    @GET("profile/{profileId}/reservation/create")
+    suspend fun createReservation(@Path("profileId") profileId: String): GuestDetails
 }
 
 /**
