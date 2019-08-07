@@ -41,7 +41,7 @@ import kotlin.random.Random
 class SmartKeyCodeFragment : Fragment() {
     private val args: SmartKeyCodeFragmentArgs by navArgs()
     private lateinit var bitmap: Bitmap
-    private val QRCodeSide = 400
+    private val qrCodeSide = 400
 
     /**
      * Lazily initialize our [SmartKeyCodeModel].
@@ -132,7 +132,7 @@ class SmartKeyCodeFragment : Fragment() {
 
     @Throws(WriterException::class)
     private fun textToImageEncode(value: String): Bitmap {
-        val bitMatrix = encode(value, BarcodeFormat.QR_CODE, QRCodeSide, QRCodeSide, getHint())
+        val bitMatrix = encode(value, BarcodeFormat.QR_CODE, qrCodeSide, qrCodeSide, getHint())
         val bitMatrixWidth = bitMatrix?.width ?: 0
         val bitMatrixHeight = bitMatrix?.height ?: 0
 
@@ -187,7 +187,7 @@ class SmartKeyCodeFragment : Fragment() {
     private fun encodeBitmap(pixels: IntArray, width: Int, height: Int): Bitmap {
         /* ARGB_8888 - Each Pixel is stored in 4 bytes */
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-        bitmap.setPixels(pixels, 0, QRCodeSide, 0, 0, width, height)
+        bitmap.setPixels(pixels, 0, qrCodeSide, 0, 0, width, height)
         return bitmap
     }
 
