@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import com.amitesh.guestapp.databinding.FragmentSmartKeyUsageBinding
 
 
@@ -20,6 +22,7 @@ private const val ARG_PARAM2 = "param2"
  *
  */
 class SmartKeyUsageFragment : Fragment() {
+    private val args: SmartKeyUsageFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +32,11 @@ class SmartKeyUsageFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentSmartKeyUsageBinding>(
             inflater, R.layout.fragment_smart_key_usage, container, false
         )
+        Toast.makeText(
+            context,
+            "Reservation No: ${args.reservationNo}",
+            Toast.LENGTH_LONG
+        ).show()
         return binding.root
     }
 

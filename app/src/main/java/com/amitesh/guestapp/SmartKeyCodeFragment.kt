@@ -2,6 +2,7 @@ package com.amitesh.guestapp
 
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.*
@@ -54,6 +55,10 @@ class SmartKeyCodeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        activity?.apply {
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        }
         //Inflate using Data binding
         val binding = DataBindingUtil.inflate<FragmentSmartKeyCodeBinding>(
             inflater, R.layout.fragment_smart_key_code, container, false
@@ -230,6 +235,14 @@ class SmartKeyCodeFragment : Fragment() {
                 //deprecated in API 26
                 buzzer.vibrate(pattern, -1)
             }
+        }
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        activity?.apply {
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
         }
     }
 }
