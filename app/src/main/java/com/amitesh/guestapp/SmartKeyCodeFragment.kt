@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.graphics.Bitmap
 import android.os.*
+import android.util.Base64.encodeToString
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +27,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.zxing.WriterException
 import java.io.File
 import java.io.FileOutputStream
+import java.nio.charset.Charset
 import kotlin.random.Random
 
 
@@ -105,9 +107,12 @@ class SmartKeyCodeFragment : Fragment() {
     private fun generateCode(binding: FragmentSmartKeyCodeBinding) {
         val smartKeyUnlockDoorRequest = getSmartKeyUnlockDoorRequest()
         val smartKeyUnlockDoorRequestJson = smartKeyUnlockDoorRequestObjToJson(smartKeyUnlockDoorRequest)
-        Log.i("smartKeyUnlockDoorReq", smartKeyUnlockDoorRequestJson)
+        Log.i("unlockDoorReq", smartKeyUnlockDoorRequestJson)
+        val smartKeyUnlockDoorRequestJsonEncoded =
+            encodeToString(smartKeyUnlockDoorRequestJson.toByteArray(Charset.forName("UTF-8")), 0)
+        Log.i("unlockDoorReqEncoded", smartKeyUnlockDoorRequestJsonEncoded)
         try {
-            bitmap = textToImageEncode(smartKeyUnlockDoorRequestJson)
+            bitmap = textToImageEncode(smartKeyUnlockDoorRequestJsonEncoded)
             binding.smartKeyCodeIV.setImageBitmap(bitmap)
             smartKeyCodeModel.onCodeRegenerateComplete()
         } catch (e: WriterException) {
