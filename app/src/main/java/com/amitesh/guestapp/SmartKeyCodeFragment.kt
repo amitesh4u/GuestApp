@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
@@ -68,15 +69,23 @@ class SmartKeyCodeFragment : Fragment() {
         binding.shareSmartKeyCodeButton.setOnClickListener {
             shareSmartKeyCode()
         }
-//        Toast.makeText(
-//            context,
-//            "Reservation No: ${args.reservationNo} and Room No: ${args.roomNo}",
-//            Toast.LENGTH_LONG
-//        ).show()
+        Toast.makeText(
+            context,
+            "Reservation No: ${args.reservationNo} and Room No: ${args.roomNo}",
+            Toast.LENGTH_LONG
+        ).show()
 
         generateCode(binding)
 
         addEventCodeObserver(binding)
+
+        // Buzzes when triggered with different buzz events
+        smartKeyCodeModel.eventBuzz.observe(this, Observer { buzzType ->
+            if (buzzType != SmartKeyCodeModel.BuzzType.NO_BUZZ) {
+                buzz(buzzType.pattern)
+                smartKeyCodeModel.onBuzzComplete()
+            }
+        })
 
         return binding.root
     }
@@ -210,4 +219,17 @@ class SmartKeyCodeFragment : Fragment() {
         }
     }
 
+    /* Perform Buzz.  It uses the activity to get a system service so should be in Fragment */
+    private fun buzz(pattern: LongArray) {
+        val buzzer = activity?.getSystemService<Vibrator>()
+
+        buzzer?.let {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                buzzer.vibrate(VibrationEffect.createWaveform(pattern, -1))
+            } else {
+                //deprecated in API 26
+                buzzer.vibrate(pattern, -1)
+            }
+        }
+    }
 }
