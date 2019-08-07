@@ -27,6 +27,9 @@
     <string name="button_smart_key_code">Generate Smart Key Code</string>
     <string name="button_smart_key_usage">Show Smart Key Usage</string>
 
+    <!-- Elements of Smart Key Code Page -->
+    <string name="button_smart_key_code_share">Share Smart Key Code</string>
+
     <!-- Elements of About Me page -->
     <string name="text_about">About the Guest App</string>
 </resources>

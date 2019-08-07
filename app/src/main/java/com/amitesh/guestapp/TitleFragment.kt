@@ -11,9 +11,11 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.amitesh.guestapp.databinding.FragmentTitleBinding
 import com.amitesh.guestapp.model.TitleViewModel
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.fragment_title.*
 
 const val TRY_AGAIN = "Try Again!!"
 
@@ -48,14 +50,23 @@ class TitleFragment : Fragment() {
         //Tell Android that our Fragment has a menu
         setHasOptionsMenu(true)
 
+        binding.pullToRefresh.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
+            titleViewModel.fetchRezDetails()
+            pullToRefresh.isRefreshing = false
+        })
         /* The complete onClickListener with Navigation using createNavigateOnClickListener.
         Navigate through NavDirections i.e. SafeARgs
         */
-        binding.smartKeyButton.setOnClickListener(
-            Navigation.createNavigateOnClickListener(
-                TitleFragmentDirections.actionTitleFragmentToSmartKeyFragment()
+        binding.smartKeyButton.setOnClickListener { view: View ->
+            /* Using SafeArgs Navigation option */
+            val guestDetails = titleViewModel.currentRez.value!!
+            Navigation.findNavController(view).navigate(
+                TitleFragmentDirections.actionTitleFragmentToSmartKeyFragment(
+                    guestDetails.reservationNo,
+                    guestDetails.roomNo!!
+                )
             )
-        )
+        }
 
         // Add an Observer on the state variable for showing a Snackbar message
         addStatusMessageObserver()

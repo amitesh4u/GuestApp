@@ -1,8 +1,7 @@
 package com.amitesh.guestapp.network
 
 import com.amitesh.guestapp.domainobject.GuestDetails
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.amitesh.guestapp.util.moshi
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -11,20 +10,13 @@ import retrofit2.http.Path
 import java.util.concurrent.TimeUnit
 
 
-private const val BASE_URL = "http://192.168.0.104:8080/pms/service/v1/"
+//private const val BASE_URL = "http://192.168.0.104:8080/pms/service/v1/"
+private const val BASE_URL = "http://amitesh4u.com/pms/service/v1/"
 
-var okHttpClient = OkHttpClient.Builder()
-    .connectTimeout(5, TimeUnit.SECONDS)
+var okHttpClient: OkHttpClient = OkHttpClient.Builder()
+    .connectTimeout(10, TimeUnit.SECONDS)
     .readTimeout(30, TimeUnit.SECONDS)
     .writeTimeout(15, TimeUnit.SECONDS)
-    .build()
-
-/**
- * Build the Moshi object that Retrofit will be using, making sure to add the Kotlin adapter for
- * full Kotlin compatibility.
- */
-private val moshi = Moshi.Builder()
-    .add(KotlinJsonAdapterFactory())
     .build()
 
 /**

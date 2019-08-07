@@ -1,11 +1,102 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".SmartKeyCodeFragment">
+
+    <data>
+
+        <variable
+            name="smartKeyCodeModel"
+            type="com.amitesh.guestapp.model.SmartKeyCodeModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/smartKeyCodeConstraint"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fillViewport="true"></androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineVertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.60" />
+
+        <TextView
+            android:id="@+id/smartKeyCodeExpiredText"
+            style="@style/LabelTheme"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Your code has expired. Re-generating..."
+            android:visibility="@{safeUnbox(smartKeyCodeModel.eventCodeExpired)}"
+            app:layout_constraintBottom_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/smartKeyCodeExpiryText"
+            style="@style/LabelTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Your code will expire in "
+            android:visibility="@{safeUnbox(smartKeyCodeModel.eventCodeActive)}"
+            app:layout_constraintBottom_toTopOf="@+id/smartKeyCodeIV"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/smartCodeExpiryTimerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@{smartKeyCodeModel.currentTimeString}"
+            android:textColor="@color/appRed"
+            android:textSize="18sp"
+            android:visibility="@{safeUnbox(smartKeyCodeModel.eventCodeActive)}"
+            app:layout_constraintBaseline_toBaselineOf="@+id/smartKeyCodeExpiryText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
+            tools:text="0:00" />
+
+
+        <ImageView
+            android:id="@+id/smartKeyCodeIV"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="@{safeUnbox(smartKeyCodeModel.eventCodeActive)}"
+            app:layout_constraintBottom_toTopOf="@+id/shareSmartKeyCodeButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/smartKeyCodeExpiryText"
+            tools:background="#AAAAAA" />
+
+        <Button
+            android:id="@+id/shareSmartKeyCodeButton"
+            style="@style/ButtonTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_smart_key_code_share"
+            android:visibility="@{safeUnbox(smartKeyCodeModel.eventCodeActive)}"
+            app:layout_constraintBottom_toTopOf="@+id/smartKeyCodeIV"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/smartKeyCodeExpiryText" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

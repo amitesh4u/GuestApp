@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
 import com.amitesh.guestapp.databinding.FragmentSmartKeyBinding
 
 
@@ -22,6 +23,8 @@ private const val ARG_PARAM2 = "param2"
  */
 class SmartKeyFragment : Fragment() {
 
+    private val args: SmartKeyFragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,17 +37,17 @@ class SmartKeyFragment : Fragment() {
         /* The complete onClickListener with Navigation using createNavigateOnClickListener.
         Navigate through NavDirections i.e. SafeARgs
         */
-        binding.smartKeyUsageButton.setOnClickListener(
-            Navigation.createNavigateOnClickListener(
-                SmartKeyFragmentDirections.actionSmartKeyFragmentToSmartKeyUsageFragment()
+        binding.smartKeyUsageButton.setOnClickListener { view: View ->
+            Navigation.findNavController(view).navigate(
+                SmartKeyFragmentDirections.actionSmartKeyFragmentToSmartKeyUsageFragment(args.reservationNo)
             )
-        )
+        }
 
-        binding.smartKeyCodeButton.setOnClickListener(
-            Navigation.createNavigateOnClickListener(
-                SmartKeyFragmentDirections.actionSmartKeyFragmentToSmartKeyCodeFragment()
+        binding.smartKeyCodeButton.setOnClickListener { view: View ->
+            Navigation.findNavController(view).navigate(
+                SmartKeyFragmentDirections.actionSmartKeyFragmentToSmartKeyCodeFragment(args.reservationNo, args.roomNo)
             )
-        )
+        }
 
         return binding.root
     }
