@@ -8,8 +8,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.amitesh.guestapp.databinding.FragmentSmartKeyUsageBinding
+import com.amitesh.guestapp.model.SmartKeyUsageModel
+import kotlinx.android.synthetic.main.fragment_title.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -24,6 +28,13 @@ private const val ARG_PARAM2 = "param2"
 class SmartKeyUsageFragment : Fragment() {
     private val args: SmartKeyUsageFragmentArgs by navArgs()
 
+    /**
+     * Lazily initialize our [SmartKeyUsageModel].
+     */
+    private val smartKeyUsageModel: SmartKeyUsageModel by lazy {
+        ViewModelProviders.of(this).get(SmartKeyUsageModel::class.java)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,11 +43,25 @@ class SmartKeyUsageFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentSmartKeyUsageBinding>(
             inflater, R.layout.fragment_smart_key_usage, container, false
         )
+        // Giving the binding access to the OverviewViewModel
+        binding.smartKeyUsageModel = smartKeyUsageModel
+
+        // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
+        binding.lifecycleOwner = this
+
         Toast.makeText(
             context,
             "Reservation No: ${args.reservationNo}",
             Toast.LENGTH_LONG
         ).show()
+
+        binding.pullToRefresh.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
+            smartKeyUsageModel.fetchSmartKeyUsage(args.reservationNo)
+            pullToRefresh.isRefreshing = false
+        })
+
+        smartKeyUsageModel.fetchSmartKeyUsage(args.reservationNo)
+
         return binding.root
     }
 

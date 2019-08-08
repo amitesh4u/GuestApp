@@ -1,11 +1,99 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".SmartKeyUsageFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/smartKeyUsageConstraint"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fillViewport="true"></androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Data to make available to the XML via data binding. In this case,
+   the whole ViewModel, so that we can access the LiveData,
+   click handlers, and state variables. -->
+    <data>
 
+        <variable
+            name="smartKeyUsageModel"
+            type="com.amitesh.guestapp.model.SmartKeyUsageModel" />
+    </data>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/pullToRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/smartKeyUsageConstraint"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:id="@+id/progress_overlay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:animateLayoutChanges="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:translationZ="10dp"
+                android:visibility="@{safeUnbox(smartKeyUsageModel.progressBarStatus)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent"
+                tools:visibility="gone">
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="@style/MyProgressBarRectangle"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:alpha="1.0"
+                    android:indeterminate="true"
+                    android:translationZ="16dp" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/smartKeyUsageNotPresentTextview"
+                style="@style/HeaderTheme"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/size_16dp"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:layout_marginEnd="@dimen/size_16dp"
+                android:gravity="center"
+                android:text="@string/SmartKeyUsageEmptyText"
+                android:visibility="@{safeUnbox(smartKeyUsageModel.smartKeyUsageNotPresentVisibility)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:visibility="@{safeUnbox(smartKeyUsageModel.smartKeyUsageVisibility)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <!-- In the TextView, we can access the LiveData,
+                     which keeps it displayed and updated in the TextView
+                     whenever it changes. -->
+
+                <TextView
+                    android:id="@+id/smartKeyUsageTextview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_16dp"
+                    android:layout_marginTop="@dimen/size_16dp"
+                    android:layout_marginEnd="@dimen/size_16dp"
+                    android:text="@{smartKeyUsageModel.smartKeyUsageHtml}" />
+            </ScrollView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

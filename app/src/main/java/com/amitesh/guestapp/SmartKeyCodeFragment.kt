@@ -19,7 +19,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
 import com.amitesh.guestapp.databinding.FragmentSmartKeyCodeBinding
-import com.amitesh.guestapp.domainobject.SmartKeyUnlockDoorRequest
+import com.amitesh.guestapp.domainobject.SmartKeyUnlockDoor
 import com.amitesh.guestapp.model.SmartKeyCodeModel
 import com.amitesh.guestapp.util.smartKeyUnlockDoorRequestObjToJson
 import com.amitesh.guestapp.util.textToImageEncode
@@ -120,8 +120,8 @@ class SmartKeyCodeFragment : Fragment() {
         }
     }
 
-    private fun getSmartKeyUnlockDoorRequest(): SmartKeyUnlockDoorRequest {
-        return SmartKeyUnlockDoorRequest(
+    private fun getSmartKeyUnlockDoorRequest(): SmartKeyUnlockDoor {
+        return SmartKeyUnlockDoor(
             args.reservationNo,
             args.roomNo,
             "req" + Random(100).nextLong(),

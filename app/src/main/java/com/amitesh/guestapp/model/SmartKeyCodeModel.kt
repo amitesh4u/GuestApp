@@ -30,7 +30,7 @@ class SmartKeyCodeModel : ViewModel() {
         // This is the number of milliseconds in a second
         const val ONE_SECOND = 1000L
         // This is the total time of the code
-        const val COUNTDOWN_TIME = 20000L
+        const val COUNTDOWN_TIME = 60000L
         // This is the time when the phone will start buzzing each second
         private const val COUNTDOWN_PANIC_SECONDS = 5L
     }

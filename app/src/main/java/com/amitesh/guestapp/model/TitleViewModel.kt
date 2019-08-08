@@ -6,18 +6,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.amitesh.guestapp.domainobject.GuestDetails
+import com.amitesh.guestapp.network.ApiStatus
 import com.amitesh.guestapp.network.GuestAppApi
+import com.amitesh.guestapp.network.PROFILE_ID
+import com.amitesh.guestapp.network.ReservationStatus
 import com.amitesh.guestapp.util.convertLongToDateString
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-
-enum class ApiStatus { LOADING, ERROR, DONE }
-enum class ReservationStatus { NONE, ARRIVING, INHOUSE }
-
-private const val PROFILE_ID = "sg0300747"
 
 /**
  * The [ViewModel] that is attached to the [com.amitesh.guestapp.TitleFragment].

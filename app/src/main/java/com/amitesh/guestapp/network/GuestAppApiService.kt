@@ -1,6 +1,7 @@
 package com.amitesh.guestapp.network
 
 import com.amitesh.guestapp.domainobject.GuestDetails
+import com.amitesh.guestapp.domainobject.SmartKeyUnlockDoor
 import com.amitesh.guestapp.util.moshi
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -10,10 +11,15 @@ import retrofit2.http.Path
 import java.util.concurrent.TimeUnit
 
 
-//private const val BASE_URL = "http://192.168.0.104:8080/pms/service/v1/"
+enum class ApiStatus { LOADING, ERROR, DONE }
+enum class ReservationStatus { NONE, ARRIVING, INHOUSE }
+
+const val PROFILE_ID = "sg0300747"
+
+//private const val BASE_URL = "http://10.135.194.224:8080/pms/service/v1/"
 private const val BASE_URL = "http://amitesh4u.com/pms/service/v1/"
 
-var okHttpClient: OkHttpClient = OkHttpClient.Builder()
+private val okHttpClient: OkHttpClient = OkHttpClient.Builder()
     .connectTimeout(10, TimeUnit.SECONDS)
     .readTimeout(30, TimeUnit.SECONDS)
     .writeTimeout(15, TimeUnit.SECONDS)
@@ -49,6 +55,9 @@ interface GuestAppApiService {
 
     @GET("reservation/{reservationNo}/changeroom")
     suspend fun changeRoomOfReservation(@Path("reservationNo") reservationNo: String): GuestDetails
+
+    @GET("reservation/{reservationNo}/smartkeyusage")
+    suspend fun getSmartKeyUsage(@Path("reservationNo") reservationNo: String): List<SmartKeyUnlockDoor>
 
 }
 

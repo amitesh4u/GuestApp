@@ -32,4 +32,5 @@
 
     <!-- Elements of About Me page -->
     <string name="text_about">About the Guest App</string>
+    <string name="SmartKeyUsageEmptyText">Seems you have never been to your Room!!</string>
 </resources>
