@@ -11,7 +11,7 @@
     <string name="title_smart_key_usage">Smart Key Usage</string>
 
     <!-- Elements of Title Page -->
-    <string name="welcome_text">Hello Amitesh!!</string>
+    <string name="welcome_text">Hello Amitesh!! Welcome to Upskill</string>
     <string name="label_rez_no">Reservation No:</string>
     <string name="label_room_no">Room No:</string>
     <string name="label_check_in">Check-In at:</string>
@@ -28,9 +28,16 @@
     <string name="button_smart_key_usage">Show Smart Key Usage</string>
 
     <!-- Elements of Smart Key Code Page -->
+    <string name="text_smart_key_code_expired">Your code has expired. Re-generating...</string>
+    <string name="text_smart_key_code_header">Please scan this Code to Door Lock</string>
+    <string name="text_smart_key_code_expiry_times">Your code will expire in</string>
     <string name="button_smart_key_code_share">Share Smart Key Code</string>
+
+    <!-- Elements of Smart Key Code Usage Page -->
+    <string name="text_smart_key_usage_empty">Seems you have never been to your Room!!</string>
+
 
     <!-- Elements of About Me page -->
     <string name="text_about">About the Guest App</string>
-    <string name="SmartKeyUsageEmptyText">Seems you have never been to your Room!!</string>
+    <string name="smart_key_code">Smart Key Code</string>
 </resources>
