@@ -1,9 +1,11 @@
 package com.amitesh.guestapp
 
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.*
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -66,6 +68,18 @@ class TitleFragment : Fragment() {
                     guestDetails.roomNo!!
                 )
             )
+        }
+
+        binding.checkOutButton.setOnClickListener {
+            val builder = AlertDialog.Builder(context)
+            builder.setTitle("Check-out")
+                .setMessage("Do you really want to Check-out?")
+                .setPositiveButton("Yes") { _, _ ->
+                    Toast.makeText(context, "Ok, Checking you Out now.", Toast.LENGTH_SHORT).show()
+                    titleViewModel.checkOutReservation()
+                }
+                .setNegativeButton("No", null)
+                .show()
         }
 
         // Add an Observer on the state variable for showing a Snackbar message
