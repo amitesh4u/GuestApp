@@ -12,7 +12,11 @@
         tools:layout="@layout/fragment_title">
         <action
             android:id="@+id/action_titleFragment_to_smartKeyFragment"
-            app:destination="@id/smartKeyFragment" />
+            app:destination="@id/smartKeyFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
@@ -26,10 +30,18 @@
         tools:layout="@layout/fragment_smart_key">
         <action
             android:id="@+id/action_smartKeyFragment_to_smartKeyCodeFragment"
-            app:destination="@id/smartKeyCodeFragment" />
+            app:destination="@id/smartKeyCodeFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_smartKeyFragment_to_smartKeyUsageFragment"
-            app:destination="@id/smartKeyUsageFragment" />
+            app:destination="@id/smartKeyUsageFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <argument
             android:name="reservationNo"
             app:argType="string" />
@@ -44,7 +56,11 @@
         tools:layout="@layout/fragment_smart_key_code">
         <action
             android:id="@+id/action_smartKeyCodeFragment_to_smartKeyFragment"
-            app:destination="@id/smartKeyFragment" />
+            app:destination="@id/smartKeyFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <argument
             android:name="reservationNo"
             app:argType="string" />
@@ -59,7 +75,11 @@
         tools:layout="@layout/fragment_smart_key_usage">
         <action
             android:id="@+id/action_smartKeyUsageFragment_to_smartKeyFragment"
-            app:destination="@id/smartKeyFragment" />
+            app:destination="@id/smartKeyFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <argument
             android:name="reservationNo"
             app:argType="string" />
