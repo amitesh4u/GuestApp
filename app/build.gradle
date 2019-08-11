@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
@@ -63,9 +63,9 @@ dependencies {
     // ViewModel and LiveData (Lifecycle)
     implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
 
-    // Room (DB) dependencies
-    implementation "androidx.room:room-runtime:$version_room"
-    kapt "androidx.room:room-compiler:$version_room"
+//    // Room (DB) dependencies
+//    implementation "androidx.room:room-runtime:$version_room"
+//    kapt "androidx.room:room-compiler:$version_room"
 
     // Co-routines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_coroutine"
