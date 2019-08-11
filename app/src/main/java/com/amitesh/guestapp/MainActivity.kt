@@ -1,13 +1,11 @@
 package com.amitesh.guestapp
 
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.content.res.Configuration
-import android.os.Build
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
@@ -18,24 +16,15 @@ private lateinit var binding: ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    var perms = arrayOf("android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.READ_EXTERNAL_STORAGE")
-    var permsRequestCode = 200
-    private lateinit var sharedPreferences: SharedPreferences
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-
-        if (shouldAskPermission(perms[0]) || shouldAskPermission(perms[1])) {
-            if (hasPermission(perms[0]) && hasPermission(perms[1])) {
-
-            } else {
-                if (!hasPermission(perms[0]) && !hasPermission(perms[1])) {
-                    requestPermissions(perms, permsRequestCode)
-                }
-            }
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), 0)
         }
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -47,6 +36,21 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    //    /* Adding logic for double Back press before exit */
+//    private val backPressDelay = 2000 // # milliseconds, desired time passed between two back presses.
+//    private var mBackPressed: Long = 0
+//    override fun onBackPressed() {
+//        Log.i("backstackentrycount",supportFragmentManager.backStackEntryCount.toString())
+//        val toast = Toast.makeText(this, "Press back button again to exit", Toast.LENGTH_SHORT)
+//        if (mBackPressed + backPressDelay > System.currentTimeMillis() || supportFragmentManager.backStackEntryCount > 0) {
+//            toast.cancel()
+//            super.onBackPressed()
+//            return
+//        } else {
+//            toast.show()
+//        }
+//        mBackPressed = System.currentTimeMillis()
+//    }
     /*
         Override the onSupportNavigateUp method from the activity (ctrl+o) and call navigateUp in nav controller.
      */
@@ -64,51 +68,4 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show()
         }
     }
-
-    private fun hasPermission(permission: String): Boolean {
-        //if (canMakeSmores()) {
-        return (checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED)
-        //}
-        //return true
-    }
-
-    /**
-     * Just a check to see if we have marshmallows (version 23)
-     * @return
-     */
-    @Suppress("Unused")
-    private fun canMakeSmores(): Boolean {
-        return Build.VERSION.SDK_INT > Build.VERSION_CODES.M
-    }
-
-    override fun onRequestPermissionsResult(permsRequestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        when (permsRequestCode) {
-            200 -> {
-                val writeAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED
-                if (writeAccepted) markAsAsked(perms[0])
-                val readAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED
-                if (readAccepted) markAsAsked(perms[1])
-            }
-        }
-    }
-
-    /**
-     * method to determine whether we have asked
-     * for this permission before.. if we have, we do not want to ask again.
-     * They either rejected us or later removed the permission.
-     * @param permission
-     * @return
-     */
-    private fun shouldAskPermission(permission: String): Boolean {
-        return sharedPreferences.getBoolean(permission, true)
-    }
-
-    /**
-     * we will save that we have already asked the user
-     * @param permission
-     */
-    private fun markAsAsked(permission: String) {
-        sharedPreferences.edit().putBoolean(permission, false).apply()
-    }
-
 }
