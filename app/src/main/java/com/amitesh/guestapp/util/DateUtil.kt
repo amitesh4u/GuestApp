@@ -10,7 +10,7 @@ import java.util.*
 * hh:mm a- Hours and minutes in 12hr format
 * HH:mm - Hour in 24 hour format
 */
-private const val dateFormat = "EEEE MMM-dd-yyyy' Time: 'HH:mm"
+private const val dateFormat = "EEEE MMM dd, hh:mm a"
 private val sdFormat = SimpleDateFormat(dateFormat, Locale.ENGLISH)
 
 fun convertLongToDateString(timeInMilliSec: Long): String {

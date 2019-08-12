@@ -11,7 +11,8 @@
     <string name="title_smart_key_usage">Smart Key Usage</string>
 
     <!-- Elements of Title Page -->
-    <string name="welcome_text">Hello Amitesh!! Welcome to Upskill</string>
+    <string name="welcome_text">Hello Guest!!</string>
+    <string name="welcome_sub_text">Welcome to Upskill</string>
     <string name="label_rez_no">Reservation No:</string>
     <string name="label_room_no">Room No:</string>
     <string name="label_check_in">Check-In at:</string>
