@@ -1,6 +1,5 @@
 package com.amitesh.guestapp.model
 
-import android.annotation.SuppressLint
 import android.os.Build
 import android.text.Html
 import android.text.Spanned
@@ -13,11 +12,11 @@ import androidx.lifecycle.ViewModel
 import com.amitesh.guestapp.domainobject.SmartKeyUnlockDoor
 import com.amitesh.guestapp.network.ApiStatus
 import com.amitesh.guestapp.network.GuestAppApi
+import com.amitesh.guestapp.util.convertLongToDateString
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
 
 class SmartKeyUsageModel : ViewModel() {
 
@@ -100,8 +99,8 @@ class SmartKeyUsageModel : ViewModel() {
                     GuestAppApi.retrofitService.getSmartKeyUsage(rezNo) //"REZ21118163", "REZ66696640"
                 // this will run on a thread managed by Retrofit
                 _status.value = ApiStatus.DONE
-                _smartKeyUsages.value = getSmartKeyUsageDeferred
                 Log.i("SmartKeyUsage", getSmartKeyUsageDeferred.toString())
+                _smartKeyUsages.value = getSmartKeyUsageDeferred
                 _statusMessage.value = "Smart Key usage details fetched successfully!!"
             } catch (e: Exception) {
                 _status.value = ApiStatus.ERROR
@@ -112,13 +111,6 @@ class SmartKeyUsageModel : ViewModel() {
 
     fun doneShowingSnackbar() {
         _statusMessage.value = null
-    }
-
-
-    @SuppressLint("SimpleDateFormat")
-    fun convertLongToDateString(systemTime: Long): String {
-        return SimpleDateFormat("EEEE MMM-dd-yyyy' Time: 'HH:mm")
-            .format(systemTime).toString()
     }
 
     private fun formatSmartKeyUsages(smartKeyUsages: List<SmartKeyUnlockDoor>): Spanned {
