@@ -97,7 +97,7 @@ class SmartKeyCodeFragment : Fragment() {
                 generateCode(binding)
                 Snackbar.make(
                     activity!!.findViewById(android.R.id.content),
-                    "New Code generated",
+                    "New Code generated for Reservation No: ${args.reservationNo} and Room No: ${args.roomNo}",
                     Snackbar.LENGTH_LONG
                 ).show()
             }

@@ -17,6 +17,7 @@ enum class ReservationStatus { NONE, ARRIVING, INHOUSE }
 const val PROFILE_ID = "sg0300747"
 
 //private const val BASE_URL = "http://10.135.194.224:8080/pms/service/v1/"
+//private const val BASE_URL = "http://192.168.0.103:8080/pms/service/v1/"
 private const val BASE_URL = "http://amitesh4u.com/pms/service/v1/"
 
 private val okHttpClient: OkHttpClient = OkHttpClient.Builder()

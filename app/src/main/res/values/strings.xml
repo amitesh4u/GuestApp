@@ -37,8 +37,6 @@
     <!-- Elements of Smart Key Code Usage Page -->
     <string name="text_smart_key_usage_empty">Seems you have never been to your Room!!</string>
 
-
     <!-- Elements of About Me page -->
-    <string name="text_about">About the Guest App</string>
-    <string name="smart_key_code">Smart Key Code</string>
+    <string name="text_about">About the Smart Door Lock</string>
 </resources>
