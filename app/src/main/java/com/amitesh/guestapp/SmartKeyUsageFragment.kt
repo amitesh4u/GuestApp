@@ -10,10 +10,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.amitesh.guestapp.databinding.FragmentSmartKeyUsageBinding
 import com.amitesh.guestapp.model.SmartKeyUsageModel
-import kotlinx.android.synthetic.main.fragment_title.*
 
 
 /**
@@ -50,10 +48,11 @@ class SmartKeyUsageFragment : Fragment() {
             Toast.LENGTH_LONG
         ).show()
 
-        binding.pullToRefresh.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
-            smartKeyUsageModel.fetchSmartKeyUsage(args.reservationNo)
-            pullToRefresh.isRefreshing = false
-        })
+        //https://support.google.com/chrome/thread/10975485?hl=en - Too Sensitive Issue
+//        binding.pullToRefresh.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
+//            smartKeyUsageModel.fetchSmartKeyUsage(args.reservationNo)
+//            pullToRefresh.isRefreshing = false
+//        })
 
         smartKeyUsageModel.fetchSmartKeyUsage(args.reservationNo)
 

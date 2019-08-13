@@ -13,10 +13,10 @@
             type="com.amitesh.guestapp.model.SmartKeyUsageModel" />
     </data>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/pullToRefresh"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <!--<androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
+    <!--android:id="@+id/pullToRefresh"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content">-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/smartKeyUsageConstraint"
@@ -95,5 +95,5 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <!--</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
 </layout>
