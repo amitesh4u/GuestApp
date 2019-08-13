@@ -124,7 +124,7 @@ class SmartKeyCodeFragment : Fragment() {
         return SmartKeyUnlockDoor(
             args.reservationNo,
             args.roomNo,
-            "req" + Random(100).nextLong(),
+            "req" + Random.nextLong(),
             System.currentTimeMillis()
         )
     }
