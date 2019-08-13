@@ -38,5 +38,5 @@
     <string name="text_smart_key_usage_empty">Seems you have never been to your Room!!</string>
 
     <!-- Elements of About Me page -->
-    <string name="text_about">About the Smart Door Lock</string>
+    <string name="text_about">About the Guest App</string>
 </resources>
