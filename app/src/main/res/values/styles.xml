@@ -26,6 +26,12 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="FooterTheme">
+        <item name="android:textStyle">bold|italic</item>
+        <item name="android:textColor">@color/appRed</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <style name="TextTheme">
         <item name="android:textStyle">italic</item>
         <item name="android:textColor">@color/appSlate</item>

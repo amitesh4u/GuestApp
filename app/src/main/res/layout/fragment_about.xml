@@ -7,9 +7,7 @@
     <ScrollView
         android:id="@+id/aboutScrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="183dp"
-        tools:layout_editor_absoluteY="100dp">
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/aboutConstraint"
@@ -27,6 +25,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/text_about_image"
                 app:srcCompat="@drawable/about_guest_app" />
 
             <TextView
@@ -41,7 +40,24 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/aboutFooterTV"
                 app:layout_constraintTop_toBottomOf="@+id/aboutImage" />
+
+            <TextView
+                android:id="@+id/aboutFooterTV"
+                style="@style/FooterTheme"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_8dp"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:layout_marginEnd="@dimen/size_8dp"
+                android:layout_marginBottom="@dimen/vertical_margin"
+                android:gravity="center_horizontal"
+                android:text="@string/text_about_footer"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/aboutTV" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
