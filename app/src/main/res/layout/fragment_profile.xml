@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragment.PofileFragment">
+
+    <ScrollView
+        android:id="@+id/aboutScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/aboutConstraint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true">
+
+            <ImageView
+                android:id="@+id/profileImage"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="@dimen/horizontal_margin"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:layout_marginEnd="@dimen/horizontal_margin"
+                android:contentDescription="@string/text_profile_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/dummy_profile_pic" />
+
+            <TextView
+                android:id="@+id/profileName"
+                style="@style/SubHeaderTheme"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_16dp"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:layout_marginEnd="@dimen/size_16dp"
+                android:layout_marginBottom="@dimen/vertical_margin"
+                android:gravity="center_horizontal"
+                android:text="@string/text_profile_name"
+                app:layout_constraintBottom_toTopOf="@+id/profileGenderLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profileImage" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineVertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.40" />
+
+            <TextView
+                android:id="@+id/profileGenderLabel"
+                style="@style/LabelTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/label_profile_gender"
+
+                app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
+                app:layout_constraintHorizontal_bias=".9"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profileName" />
+
+            <TextView
+                android:id="@+id/profileGenderText"
+                style="@style/TextTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/text_male"
+                app:layout_constraintBaseline_toBaselineOf="@+id/profileGenderLabel"
+                app:layout_constraintStart_toEndOf="@+id/guidelineVertical" />
+
+            <TextView
+                android:id="@+id/profileDOBLabel"
+                style="@style/LabelTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/label_profile_dob"
+
+                app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
+                app:layout_constraintHorizontal_bias=".9"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profileGenderText" />
+
+            <TextView
+                android:id="@+id/profileDOBText"
+                style="@style/TextTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/text_dob"
+                app:layout_constraintBaseline_toBaselineOf="@+id/profileDOBLabel"
+                app:layout_constraintStart_toEndOf="@+id/guidelineVertical" />
+
+            <View
+                android:id="@+id/personalInfoDivider"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profileDOBLabel" />
+
+            <TextView
+                android:id="@+id/profileEmailLabel"
+                style="@style/LabelTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/label_profile_email"
+
+                app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
+                app:layout_constraintHorizontal_bias=".9"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/personalInfoDivider" />
+
+            <TextView
+                android:id="@+id/profileEmailText"
+                style="@style/TextTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/text_email"
+                app:layout_constraintBaseline_toBaselineOf="@+id/profileEmailLabel"
+                app:layout_constraintStart_toEndOf="@+id/guidelineVertical" />
+
+            <TextView
+                android:id="@+id/profileContactLabel"
+                style="@style/LabelTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/label_profile_contact"
+
+                app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
+                app:layout_constraintHorizontal_bias=".9"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profileEmailLabel" />
+
+            <TextView
+                android:id="@+id/profileContactText"
+                style="@style/TextTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/text_contact"
+                app:layout_constraintBaseline_toBaselineOf="@+id/profileContactLabel"
+                app:layout_constraintStart_toEndOf="@+id/guidelineVertical" />
+
+            <TextView
+                android:id="@+id/profileAddressLabel"
+                style="@style/LabelTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/label_profile_address"
+
+                app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
+                app:layout_constraintHorizontal_bias=".9"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profileContactLabel" />
+
+            <TextView
+                android:id="@+id/profileAddressText"
+                style="@style/TextTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/text_address"
+                app:layout_constraintBaseline_toBaselineOf="@+id/profileAddressLabel"
+                app:layout_constraintStart_toEndOf="@+id/guidelineVertical" />
+
+            <View
+                android:id="@+id/contactInfoDivider"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profileAddressText" />
+
+            <TextView
+                android:id="@+id/profileNationalityLabel"
+                style="@style/LabelTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/label_profile_nationality"
+
+                app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
+                app:layout_constraintHorizontal_bias=".9"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/contactInfoDivider" />
+
+            <TextView
+                android:id="@+id/profileNationalityText"
+                style="@style/TextTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/text_nationality"
+                app:layout_constraintBaseline_toBaselineOf="@+id/profileNationalityLabel"
+                app:layout_constraintStart_toEndOf="@+id/guidelineVertical" />
+
+            <TextView
+                android:id="@+id/profileLanguagesLabel"
+                style="@style/LabelTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/label_profile_languages"
+
+                app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
+                app:layout_constraintHorizontal_bias=".9"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profileNationalityLabel" />
+
+            <TextView
+                android:id="@+id/profileLanguagesText"
+                style="@style/TextTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/text_languages"
+                app:layout_constraintBaseline_toBaselineOf="@+id/profileLanguagesLabel"
+                app:layout_constraintStart_toEndOf="@+id/guidelineVertical" />
+
+            <View
+                android:id="@+id/demographicInfoDivider"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profileLanguagesText" />
+
+            <TextView
+                android:id="@+id/profileTravellerRankLabel"
+                style="@style/LabelTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/label_profile_traveller_rank"
+
+                app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
+                app:layout_constraintHorizontal_bias=".9"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/demographicInfoDivider" />
+
+            <TextView
+                android:id="@+id/profileTravellerRankText"
+                style="@style/TextTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/text_traveller_rank"
+                app:layout_constraintBaseline_toBaselineOf="@+id/profileTravellerRankLabel"
+                app:layout_constraintStart_toEndOf="@+id/guidelineVertical" />
+
+            <TextView
+                android:id="@+id/profileTravellerPointsLabel"
+                style="@style/LabelTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:text="@string/label_profile_traveller_points"
+
+                app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
+                app:layout_constraintHorizontal_bias=".9"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profileTravellerRankLabel" />
+
+            <TextView
+                android:id="@+id/profileTravellerPointsText"
+                style="@style/TextTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/text_traveller_points"
+                app:layout_constraintBaseline_toBaselineOf="@+id/profileTravellerPointsLabel"
+                app:layout_constraintStart_toEndOf="@+id/guidelineVertical" />
+
+            <Button
+                android:id="@+id/redeemButton"
+                style="@style/SmallButtonTheme"
+                android:layout_width="64dp"
+                android:layout_height="24dp"
+                android:text="@string/button_redeem"
+                app:layout_constraintBaseline_toBaselineOf="@+id/profileTravellerPointsText"
+                app:layout_constraintStart_toEndOf="@+id/profileTravellerPointsText" />
+
+            <View
+                android:id="@+id/travellerInfoDivider"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profileTravellerPointsText" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+</layout>

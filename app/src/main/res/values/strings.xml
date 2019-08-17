@@ -6,6 +6,7 @@
     <!-- Title of all pages (fragments) -->
     <string name="title_guest_app">Guest App</string>
     <string name="title_about">About Guest App</string>
+    <string name="title_profile">Profile</string>
     <string name="title_smart_key">Smart Key</string>
     <string name="title_smart_key_code">Smart Key Code</string>
     <string name="title_smart_key_usage">Smart Key Usage</string>
@@ -30,7 +31,7 @@
     <string name="button_smart_key_usage">Show Smart Key Usage</string>
 
     <!-- Elements of Smart Key Code Page -->
-    <string name="text_smart_key_code_expired">Your code has expired. Re-generating...</string>
+    <string name="text_smart_key_code_expired">Your code has expired. Re&#8211;generating&#8230;</string>
     <string name="text_smart_key_code_header">Please scan this Code to Door Lock</string>
     <string name="text_smart_key_code_expiry_times">Your code will expire in</string>
     <string name="button_smart_key_code_share">Share Smart Key Code</string>
@@ -55,4 +56,33 @@
         \n - Manage Profile
     </string>
     <string name="text_about_footer">"Wishing you a Wonderful Stay !!"</string>
+
+    <!-- Elements of Profile Page -->
+    <string name="text_profile_image">Profile Image</string>
+    <string name="text_profile_name">Mr. Happy Guest</string>
+    <string name="label_profile_gender">Gender:</string>
+    <string name="label_profile_dob">Date of Birth:</string>
+    <string name="label_profile_email">Email:</string>
+    <string name="label_profile_contact">Contact:</string>
+    <string name="label_profile_address">Address:</string>
+    <string name="label_profile_nationality">Nationality:</string>
+    <string name="label_profile_languages">Spoken Languages:</string>
+    <string name="label_profile_traveller_rank">Traveller Rank:</string>
+    <string name="label_profile_traveller_points">Traveller Points:</string>
+    <string name="text_address">
+        3rd Floor, Navigator Building
+        \nITPB, Whitefield
+        \nBangalore - 560066
+        \nKarnataka, India
+    </string>
+    <string name="text_male">Male</string>
+    <string name="text_dob">Jan 1st, 1980</string>
+    <string name="text_email">happy.guest@email.com</string>
+    <string name="text_contact">(987)&#8211;654&#8211;3210</string>
+    <string name="text_nationality">India</string>
+    <string name="text_languages">English, Hindi</string>
+    <string name="text_traveller_rank">Travel Bunny</string>
+    <string name="text_traveller_points">1234 points</string>
+    <string name="button_redeem">Redeem</string>
+
 </resources>

@@ -35,7 +35,7 @@
     <style name="TextTheme">
         <item name="android:textStyle">italic</item>
         <item name="android:textColor">@color/appSlate</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="ButtonTheme">
@@ -52,6 +52,17 @@
         <item name="android:layout_marginEnd">@dimen/size_8dp</item>
         <item name="android:layout_marginTop">@dimen/size_8dp</item>
         <item name="android:layout_marginBottom">@dimen/size_8dp</item>
+    </style>
+
+    <style name="SmallButtonTheme">
+        <item name="android:textSize">@dimen/small_button_text_size</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@color/appGreen</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:layout_marginStart">@dimen/size_8dp</item>
+        <item name="android:layout_marginEnd">@dimen/size_8dp</item>
     </style>
 
     <style name="MyProgressBarRectangle" parent="@style/Widget.AppCompat.ProgressBar">

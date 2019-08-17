@@ -27,7 +27,7 @@
         android:id="@+id/reservationHistoryFragment"
         android:name="com.amitesh.guestapp.fragment.ReservationHistoryFragment"
         android:label="@string/title_rez_history"
-        tools:layout="@layout/fragment_reservation_history"></fragment>
+        tools:layout="@layout/fragment_reservation_history" />
     <fragment
         android:id="@+id/smartKeyFragment"
         android:name="com.amitesh.guestapp.fragment.SmartKeyFragment"
@@ -89,4 +89,9 @@
             android:name="reservationNo"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.amitesh.guestapp.fragment.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

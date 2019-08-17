@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="size_4dp">4dp</dimen>
     <dimen name="size_8dp">8dp</dimen>
     <dimen name="size_16dp">16dp</dimen>
     <dimen name="button_text_size">18sp</dimen>
+    <dimen name="small_button_text_size">12sp</dimen>
     <dimen name="vertical_margin">16dp</dimen>
     <dimen name="horizontal_margin">8dp</dimen>
     <dimen name="margin">16dp</dimen>
