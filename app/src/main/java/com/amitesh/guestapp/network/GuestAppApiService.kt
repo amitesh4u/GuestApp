@@ -11,8 +11,8 @@ import retrofit2.http.Path
 import java.util.concurrent.TimeUnit
 
 //private const val BASE_URL = "http://10.135.194.224:8080/pms/service/v1/"
-private const val BASE_URL = "http://192.168.0.104:8080/pms/service/v1/"
-//private const val BASE_URL = "http://amitesh4u.com/pms/service/v1/"
+//private const val BASE_URL = "http://192.168.0.104:8080/pms/service/v1/"
+private const val BASE_URL = "http://amitesh4u.com/pms/service/v1/"
 
 private val okHttpClient: OkHttpClient = OkHttpClient.Builder()
     .connectTimeout(10, TimeUnit.SECONDS)
