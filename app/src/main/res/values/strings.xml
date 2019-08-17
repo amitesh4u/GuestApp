@@ -42,5 +42,15 @@
     <string name="text_rez_history_empty">No Bookings yet!!</string>
 
     <!-- Elements of About Me page -->
-    <string name="text_about">About the Guest App</string>
+    <string name="text_about">Guest App is your virtual Receptionist. It will help you manage your Travel events from Booking to Check-out.
+        \n\nYou have an added option of using your Mobile phone as the personalized Secure Room Key.
+        \n\nKey Features:
+        \n - Book Reservation
+        \n - Check-In / Check-Out
+        \n - Change Room
+        \n - Unlock Room (with usage history)
+        \n - Track Reservation history
+        \n - Manage Profile
+        \n\n Wishing you a Wonderful Stay !!
+    </string>
 </resources>
