@@ -1,9 +1,10 @@
-package com.amitesh.guestapp
+package com.amitesh.guestapp.fragment
 
 
 import android.app.AlertDialog
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -14,6 +15,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.amitesh.guestapp.R
 import com.amitesh.guestapp.databinding.FragmentTitleBinding
 import com.amitesh.guestapp.model.TitleViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -43,7 +45,7 @@ class TitleFragment : Fragment() {
             inflater, R.layout.fragment_title, container, false
         )
 
-        // Giving the binding access to the OverviewViewModel
+        // Giving the binding access to the ViewModel
         binding.titleViewModel = titleViewModel
 
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
@@ -86,7 +88,7 @@ class TitleFragment : Fragment() {
         addStatusMessageObserver()
 
         // Add an Observer on the state variable for showing a Snackbar message for Error while fetching Rez details
-        addAllRezApiCallErrorMessageObserver()
+        addActiveRezApiCallErrorMessageObserver()
 
         // Add an Observer on the state variable for showing a Snackbar message for Error while creating new Rez
         addCreateRezApiCallErrorMessageObserver()
@@ -114,13 +116,13 @@ class TitleFragment : Fragment() {
 
                 // Reset state to make sure the snackbar is only shown once, even if the device
                 // has a configuration change.
-                titleViewModel.doneShowingSnackbar()
+                titleViewModel.actionComplete()
             }
         })
     }
 
-    private fun addAllRezApiCallErrorMessageObserver() {
-        titleViewModel.allRezCallErrorStatusMessage.observe(this, Observer {
+    private fun addActiveRezApiCallErrorMessageObserver() {
+        titleViewModel.activeRezCallErrorStatusMessage.observe(this, Observer {
             if (!TextUtils.isEmpty(it)) { // Observed state is true.
                 Snackbar.make(
                     activity!!.findViewById(android.R.id.content),
@@ -130,6 +132,8 @@ class TitleFragment : Fragment() {
                     // Call action functions here
                     titleViewModel.fetchRezDetails()
                 }.show()
+
+                //titleViewModel.actionComplete()
             }
         })
     }
@@ -145,6 +149,8 @@ class TitleFragment : Fragment() {
                     // Call action functions here
                     titleViewModel.createNewReservation()
                 }.show()
+
+                //titleViewModel.actionComplete()
             }
         })
     }
@@ -160,6 +166,8 @@ class TitleFragment : Fragment() {
                     // Call action functions here
                     titleViewModel.checkInReservation()
                 }.show()
+
+                //titleViewModel.actionComplete()
             }
         })
     }
@@ -175,6 +183,8 @@ class TitleFragment : Fragment() {
                     // Call action functions here
                     titleViewModel.checkOutReservation()
                 }.show()
+
+                //titleViewModel.actionComplete()
             }
         })
     }
@@ -190,6 +200,8 @@ class TitleFragment : Fragment() {
                     // Call action functions here
                     titleViewModel.changeRoomOfReservation()
                 }.show()
+
+                // titleViewModel.actionComplete()
             }
         })
     }
@@ -213,4 +225,32 @@ class TitleFragment : Fragment() {
         return NavigationUI.onNavDestinationSelected(item, view!!.findNavController())
                 || super.onOptionsItemSelected(item)
     }
+
+    /** Lifecycle Methods **/
+    override fun onStart() {
+        super.onStart()
+        Log.i("TitleFragment", "onStart Called")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.i("TitleFragment", "onResume Called")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        titleViewModel.actionComplete()
+        Log.i("TitleFragment", "onPause Called")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.i("TitleFragment", "onStop Called")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.i("TitleFragment", "onDestroy Called")
+    }
+
 }

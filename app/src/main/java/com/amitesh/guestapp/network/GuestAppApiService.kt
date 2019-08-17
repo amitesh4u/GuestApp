@@ -10,15 +10,9 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import java.util.concurrent.TimeUnit
 
-
-enum class ApiStatus { LOADING, ERROR, DONE }
-enum class ReservationStatus { NONE, ARRIVING, INHOUSE }
-
-const val PROFILE_ID = "sg0300747"
-
 //private const val BASE_URL = "http://10.135.194.224:8080/pms/service/v1/"
-//private const val BASE_URL = "http://192.168.0.103:8080/pms/service/v1/"
-private const val BASE_URL = "http://amitesh4u.com/pms/service/v1/"
+private const val BASE_URL = "http://192.168.0.104:8080/pms/service/v1/"
+//private const val BASE_URL = "http://amitesh4u.com/pms/service/v1/"
 
 private val okHttpClient: OkHttpClient = OkHttpClient.Builder()
     .connectTimeout(10, TimeUnit.SECONDS)
@@ -44,6 +38,9 @@ interface GuestAppApiService {
 
     @GET("profile/{profileId}/reservation/all")
     suspend fun allReservations(@Path("profileId") profileId: String): List<GuestDetails>
+
+    @GET("profile/{profileId}/reservation/active")
+    suspend fun activeReservation(@Path("profileId") profileId: String): List<GuestDetails>
 
     @GET("profile/{profileId}/reservation/create")
     suspend fun createReservation(@Path("profileId") profileId: String): GuestDetails

@@ -1,4 +1,4 @@
-package com.amitesh.guestapp
+package com.amitesh.guestapp.fragment
 
 
 import android.os.Bundle
@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
+import com.amitesh.guestapp.R
 import com.amitesh.guestapp.databinding.FragmentSmartKeyBinding
 
 /**
@@ -33,13 +34,18 @@ class SmartKeyFragment : Fragment() {
         */
         binding.smartKeyUsageButton.setOnClickListener { view: View ->
             Navigation.findNavController(view).navigate(
-                SmartKeyFragmentDirections.actionSmartKeyFragmentToSmartKeyUsageFragment(args.reservationNo)
+                SmartKeyFragmentDirections.actionSmartKeyFragmentToSmartKeyUsageFragment(
+                    args.reservationNo
+                )
             )
         }
 
         binding.smartKeyCodeButton.setOnClickListener { view: View ->
             Navigation.findNavController(view).navigate(
-                SmartKeyFragmentDirections.actionSmartKeyFragmentToSmartKeyCodeFragment(args.reservationNo, args.roomNo)
+                SmartKeyFragmentDirections.actionSmartKeyFragmentToSmartKeyCodeFragment(
+                    args.reservationNo,
+                    args.roomNo
+                )
             )
         }
 

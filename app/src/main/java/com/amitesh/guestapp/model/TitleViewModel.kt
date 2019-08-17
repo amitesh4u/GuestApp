@@ -5,11 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import com.amitesh.guestapp.constant.PROFILE_ID
 import com.amitesh.guestapp.domainobject.GuestDetails
-import com.amitesh.guestapp.network.ApiStatus
+import com.amitesh.guestapp.enm.ApiStatus
+import com.amitesh.guestapp.enm.ReservationStatus
 import com.amitesh.guestapp.network.GuestAppApi
-import com.amitesh.guestapp.network.PROFILE_ID
-import com.amitesh.guestapp.network.ReservationStatus
 import com.amitesh.guestapp.util.convertLongToDateString
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -37,12 +37,12 @@ class TitleViewModel : ViewModel() {
         get() = _statusMessage
 
 
-    // The internal MutableLiveData that stores the error status message of the All Rez call request
-    private val _allRezCallErrorStatusMessage = MutableLiveData<String>()
+    // The internal MutableLiveData that stores the error status message of the Active Rez call request
+    private val _activeRezCallErrorStatusMessage = MutableLiveData<String>()
 
     // The external immutable LiveData for the request status
-    val allRezCallErrorStatusMessage: LiveData<String>
-        get() = _allRezCallErrorStatusMessage
+    val activeRezCallErrorStatusMessage: LiveData<String>
+        get() = _activeRezCallErrorStatusMessage
 
     // The internal MutableLiveData that stores the error status message of Create Rez call request
     private val _createRezCallErrorStatusMessage = MutableLiveData<String>()
@@ -88,11 +88,11 @@ class TitleViewModel : ViewModel() {
     val currentRez: LiveData<GuestDetails>
         get() = _currentRez
 
-    private val _allRez = MutableLiveData<List<GuestDetails>>()
-
-    // The external LiveData interface to the property is immutable, so only this class can modify
-    val allRez: LiveData<List<GuestDetails>>
-        get() = _allRez
+//    private val _activeRez = MutableLiveData<LinkedList<GuestDetails>>()
+//
+//    // The external LiveData interface to the property is immutable, so only this class can modify
+//    val activeRez: LiveData<LinkedList<GuestDetails>>
+//        get() = _activeRez
 
     val newRezStatus: LiveData<Boolean> = Transformations.map(currentRezStatus) {
         currentRezStatus.value == ReservationStatus.NONE
@@ -147,20 +147,24 @@ class TitleViewModel : ViewModel() {
      * returns a coroutine Deferred, which we await to get the result of the transaction.
      */
     private fun getRezDetails(profileId: String) {
-        _allRezCallErrorStatusMessage.value = null
+        _activeRezCallErrorStatusMessage.value = null
         uiScope.launch {
             try {
                 _status.value = ApiStatus.LOADING
                 // Get the Deferred object for our Retrofit request
-                val getAllRezDetailsDeferred = GuestAppApi.retrofitService.allReservations(profileId)
+                val getRezDeferred = GuestAppApi.retrofitService.activeReservation(profileId)
                 // this will run on a thread managed by Retrofit
                 _status.value = ApiStatus.DONE
-                _allRez.value = getAllRezDetailsDeferred
                 _statusMessage.value = "Reservation details fetched successfully!!"
-                updateCurrentRez()
+                if (getRezDeferred.isNullOrEmpty()) {
+                    _currentRez.value = null
+                    _currentRezStatus.value = ReservationStatus.NONE
+                } else {
+                    updateCurrentRez(getRezDeferred.first())
+                }
             } catch (e: Exception) {
                 _status.value = ApiStatus.ERROR
-                _allRezCallErrorStatusMessage.value = "Error Fetching Reservation details."
+                _activeRezCallErrorStatusMessage.value = "Error Fetching Reservation details."
             }
         }
     }
@@ -182,9 +186,8 @@ class TitleViewModel : ViewModel() {
                 val getRezDeferred = GuestAppApi.retrofitService.createReservation(profileId)
                 // this will run on a thread managed by Retrofit
                 _status.value = ApiStatus.DONE
-                _allRez.value = arrayListOf(getRezDeferred)
                 _statusMessage.value = "Reservation created successfully!!"
-                updateCurrentRez()
+                updateCurrentRez(getRezDeferred)
             } catch (e: Exception) {
                 _status.value = ApiStatus.ERROR
                 _createRezCallErrorStatusMessage.value = "Error Creating Reservation."
@@ -209,9 +212,8 @@ class TitleViewModel : ViewModel() {
                 val getRezDeferred = GuestAppApi.retrofitService.checkInReservation(reservationNo)
                 // this will run on a thread managed by Retrofit
                 _status.value = ApiStatus.DONE
-                _allRez.value = arrayListOf(getRezDeferred)
                 _statusMessage.value = "Reservation Checked-In successfully!!"
-                updateCurrentRez()
+                updateCurrentRez(getRezDeferred)
             } catch (e: Exception) {
                 _status.value = ApiStatus.ERROR
                 _checkInRezCallErrorStatusMessage.value = "Error Checking In Reservation."
@@ -236,9 +238,8 @@ class TitleViewModel : ViewModel() {
                 val getRezDeferred = GuestAppApi.retrofitService.checkOutReservation(reservationNo)
                 // this will run on a thread managed by Retrofit
                 _status.value = ApiStatus.DONE
-                _allRez.value = arrayListOf(getRezDeferred)
                 _statusMessage.value = "Reservation Checked-Out successfully!!"
-                updateCurrentRez()
+                updateCurrentRez(getRezDeferred)
             } catch (e: Exception) {
                 _status.value = ApiStatus.ERROR
                 _checkOutRezCallErrorStatusMessage.value = "Error Checking Out Reservation."
@@ -263,10 +264,9 @@ class TitleViewModel : ViewModel() {
                 val getRezDeferred = GuestAppApi.retrofitService.changeRoomOfReservation(reservationNo)
                 // this will run on a thread managed by Retrofit
                 _status.value = ApiStatus.DONE
-                _allRez.value = arrayListOf(getRezDeferred)
                 _statusMessage.value =
                     "Room no changed successfully from " + _currentRez.value!!.roomNo + " to " + getRezDeferred.roomNo
-                updateCurrentRez()
+                updateCurrentRez(getRezDeferred)
             } catch (e: Exception) {
                 _status.value = ApiStatus.ERROR
                 _changeRoomRezCallErrorStatusMessage.value = "Error Changing Room of Reservation."
@@ -274,27 +274,19 @@ class TitleViewModel : ViewModel() {
         }
     }
 
-    private fun updateCurrentRez() {
-        val allRez = _allRez.value
-        Log.i("All Rez", allRez.toString())
-        if (allRez.isNullOrEmpty()) {
-            _currentRez.value = null
-            _currentRezStatus.value = ReservationStatus.NONE
-        } else {
-            val curRez = allRez.first()
-            when (curRez.rezStatus) {
-                "ARRIVING" -> {
-                    _currentRez.value = curRez
-                    _currentRezStatus.value = ReservationStatus.ARRIVING
-                }
-                "IN-HOUSE" -> {
-                    _currentRez.value = curRez
-                    _currentRezStatus.value = ReservationStatus.INHOUSE
-                }
-                else -> {
-                    _currentRez.value = null
-                    _currentRezStatus.value = ReservationStatus.NONE
-                }
+    private fun updateCurrentRez(rezResponse: GuestDetails) {
+        when (rezResponse.rezStatus) {
+            ReservationStatus.ARRIVING.code -> {
+                _currentRez.value = rezResponse
+                _currentRezStatus.value = ReservationStatus.ARRIVING
+            }
+            ReservationStatus.INHOUSE.code -> {
+                _currentRez.value = rezResponse
+                _currentRezStatus.value = ReservationStatus.INHOUSE
+            }
+            else -> {
+                _currentRez.value = null
+                _currentRezStatus.value = ReservationStatus.NONE
             }
         }
         Log.i("Rez status", _currentRezStatus.value.toString())
@@ -306,7 +298,12 @@ class TitleViewModel : ViewModel() {
         return convertLongToDateString(timeInMillisec)
     }
 
-    fun doneShowingSnackbar() {
+    fun actionComplete() {
         _statusMessage.value = null
+        _activeRezCallErrorStatusMessage.value = null
+        _createRezCallErrorStatusMessage.value = null
+        _checkInRezCallErrorStatusMessage.value = null
+        _checkOutRezCallErrorStatusMessage.value = null
+        _changeRoomRezCallErrorStatusMessage.value = null
     }
 }

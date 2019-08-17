@@ -10,7 +10,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.amitesh.guestapp.domainobject.SmartKeyUnlockDoor
-import com.amitesh.guestapp.network.ApiStatus
+import com.amitesh.guestapp.enm.ApiStatus
 import com.amitesh.guestapp.network.GuestAppApi
 import com.amitesh.guestapp.util.convertLongToDateString
 import kotlinx.coroutines.CoroutineScope
@@ -109,23 +109,29 @@ class SmartKeyUsageModel : ViewModel() {
         }
     }
 
-    fun doneShowingSnackbar() {
+    fun actionComplete() {
         _statusMessage.value = null
+        _smartKeyUsageCallErrorStatusMessage.value = null
     }
 
     private fun formatSmartKeyUsages(smartKeyUsages: List<SmartKeyUnlockDoor>): Spanned {
         val sb = StringBuilder()
         sb.apply {
-            append("<h1>Here is your Smart Key Usage Details</h1>")
-            append("<br><br>")
+            append("<h1><font color='#E50000'>Smart Key Usage Details for ${smartKeyUsages[0].reservationNo}</font></h1>")
+            append("<br>")
+            var fontColorElement = "<font color='#AC0000'>"
             smartKeyUsages.forEach {
                 append("<div>")
                 append("<b>Room No: </b>")
-                append("<i>\t${it.roomNo}</i><br>")
+                append(fontColorElement)
+                append("<i>\t${it.roomNo}</i></font><br>")
                 append("<b>Request Id: </b>")
-                append("<i>\t${it.reqId}</i><br>")
+                append(fontColorElement)
+                append("<i>\t${it.reqId}</i></font><br>")
                 append("<b>at </b>")
-                append("<i>\t${convertLongToDateString(it.reqTime)}</i><br><br><br>")
+                append(fontColorElement)
+                append("<i>\t${convertLongToDateString(it.reqTime)}</i></font><br>")
+                append("<br><br>")
                 append("</div>")
             }
         }

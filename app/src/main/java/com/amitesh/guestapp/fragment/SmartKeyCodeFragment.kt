@@ -1,4 +1,4 @@
-package com.amitesh.guestapp
+package com.amitesh.guestapp.fragment
 
 
 import android.content.Intent
@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
+import com.amitesh.guestapp.R
 import com.amitesh.guestapp.databinding.FragmentSmartKeyCodeBinding
 import com.amitesh.guestapp.domainobject.SmartKeyUnlockDoor
 import com.amitesh.guestapp.model.SmartKeyCodeModel
@@ -60,7 +61,7 @@ class SmartKeyCodeFragment : Fragment() {
             inflater, R.layout.fragment_smart_key_code, container, false
         )
 
-        // Giving the binding access to the OverviewViewModel
+        // Giving the binding access to the ViewModel
         binding.smartKeyCodeModel = smartKeyCodeModel
 
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment

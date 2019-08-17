@@ -1,4 +1,4 @@
-package com.amitesh.guestapp
+package com.amitesh.guestapp.fragment
 
 
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.amitesh.guestapp.R
 import com.amitesh.guestapp.databinding.FragmentAboutBinding
 
 /**

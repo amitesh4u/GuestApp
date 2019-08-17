@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".TitleFragment">
+    tools:context=".fragment.TitleFragment">
 
     <!-- Data to make available to the XML via data binding. In this case,
     the whole ViewModel, so that we can access the LiveData,

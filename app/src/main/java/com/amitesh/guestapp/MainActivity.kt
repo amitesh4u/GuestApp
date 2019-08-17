@@ -7,7 +7,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.amitesh.guestapp.databinding.ActivityMainBinding
 
@@ -15,6 +19,9 @@ import com.amitesh.guestapp.databinding.ActivityMainBinding
 private lateinit var binding: ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,10 +36,25 @@ class MainActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+        /* Initialize the drawerLayout from the binding variable */
+        drawerLayout = binding.drawerLayout
+
         // Find the controller from the ID of our NavHostFragment using the KTX extension function.
         val navController = this.findNavController(R.id.myNavHostFragment)
         //Link the NavController to our ActionBar
-        NavigationUI.setupActionBarWithNavController(this, navController)
+//        NavigationUI.setupActionBarWithNavController(this, navController)
+
+        // prevent nav gesture if not on start destination
+        navController.addOnDestinationChangedListener { nc: NavController, nd: NavDestination, _: Bundle? ->
+            if (nd.id == nc.graph.startDestination) {
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+            } else {
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            }
+        }
+        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
+        appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
+        NavigationUI.setupWithNavController(binding.navView, navController)
 
     }
 
@@ -56,7 +78,8 @@ class MainActivity : AppCompatActivity() {
      */
     override fun onSupportNavigateUp(): Boolean {
         val navController = this.findNavController(R.id.myNavHostFragment)
-        return navController.navigateUp()
+        return NavigationUI.navigateUp(navController, appBarConfiguration)
+        //return navController.navigateUp()
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
