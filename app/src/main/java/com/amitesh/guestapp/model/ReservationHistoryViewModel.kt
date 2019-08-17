@@ -159,11 +159,13 @@ class ReservationHistoryViewModel : ViewModel() {
             }
         }
 
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        val returnHtml = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Html.fromHtml(sb.toString(), Html.FROM_HTML_OPTION_USE_CSS_COLORS)
         } else {
             HtmlCompat.fromHtml(sb.toString(), HtmlCompat.FROM_HTML_OPTION_USE_CSS_COLORS)
         }
+        //Log.i("RezHistHtml", returnHtml.toString())
+        return returnHtml
     }
 
 

@@ -138,6 +138,7 @@ class TitleViewModel : ViewModel() {
     }
 
     fun fetchRezDetails() {
+        Log.i("TitleViewModel", "fetchRezDetails Called")
         getRezDetails(PROFILE_ID)
     }
 
