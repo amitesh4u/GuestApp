@@ -94,4 +94,19 @@
         android:name="com.amitesh.guestapp.fragment.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/guestServicesFragment"
+        android:name="com.amitesh.guestapp.fragment.GuestServicesFragment"
+        android:label="@string/title_guest_services"
+        tools:layout="@layout/fragment_guest_services" />
+    <fragment
+        android:id="@+id/helpAndSupportFragment"
+        android:name="com.amitesh.guestapp.fragment.HelpAndSupportFragment"
+        android:label="@string/title_help_support"
+        tools:layout="@layout/fragment_help_and_support" />
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.amitesh.guestapp.fragment.PaymentFragment"
+        android:label="@string/title_payment"
+        tools:layout="@layout/fragment_payment" />
 </navigation>

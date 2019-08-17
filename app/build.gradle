@@ -83,4 +83,7 @@ dependencies {
 
     /* For QR code generation */
     implementation 'com.google.zxing:core:3.4.0'
+
+    //Gif image
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.17'
 }
