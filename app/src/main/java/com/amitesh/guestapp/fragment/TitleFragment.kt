@@ -3,6 +3,7 @@ package com.amitesh.guestapp.fragment
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.os.Handler
 import android.text.TextUtils
 import android.util.Log
 import android.view.*
@@ -15,11 +16,11 @@ import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.amitesh.guestapp.R
 import com.amitesh.guestapp.databinding.FragmentTitleBinding
 import com.amitesh.guestapp.model.TitleViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_title.*
+
 
 const val TRY_AGAIN = "Try Again!!"
 
@@ -36,13 +37,15 @@ class TitleFragment : Fragment() {
         ViewModelProviders.of(this).get(TitleViewModel::class.java)
     }
 
+    private lateinit var mHandler: Handler
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         //Inflate using Data binding
         val binding = DataBindingUtil.inflate<FragmentTitleBinding>(
-            inflater, R.layout.fragment_title, container, false
+            inflater, com.amitesh.guestapp.R.layout.fragment_title, container, false
         )
 
         // Giving the binding access to the ViewModel
@@ -58,6 +61,7 @@ class TitleFragment : Fragment() {
             titleViewModel.fetchRezDetails()
             pullToRefresh.isRefreshing = false
         })
+
         /* The complete onClickListener with Navigation using createNavigateOnClickListener.
         Navigate through NavDirections i.e. SafeARgs
         */
@@ -206,6 +210,15 @@ class TitleFragment : Fragment() {
         })
     }
 
+    private val mRunnable: Runnable = Runnable {
+        titleViewModel.fetchRezDetails()
+        doTheAutoRefresh()
+    }
+
+    private fun doTheAutoRefresh() {
+        mHandler = Handler()
+        mHandler.postDelayed(mRunnable, 20000)
+    }
 
     /*
         Override onCreateOptionsMenu and inflate our new menu resource
@@ -213,7 +226,7 @@ class TitleFragment : Fragment() {
      */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.overflow_menu, menu)
+        inflater.inflate(com.amitesh.guestapp.R.menu.overflow_menu, menu)
     }
 
     /*
@@ -234,12 +247,15 @@ class TitleFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+//        titleViewModel.fetchRezDetails()
+        doTheAutoRefresh()
         Log.i("TitleFragment", "onResume Called")
     }
 
     override fun onPause() {
         super.onPause()
         titleViewModel.actionComplete()
+        mHandler.removeCallbacks(mRunnable)
         Log.i("TitleFragment", "onPause Called")
     }
 
