@@ -121,44 +121,45 @@ class ReservationHistoryViewModel : ViewModel() {
 
     private fun formatReservationHistory(reservationHistory: List<GuestDetails>): Spanned {
         val sb = StringBuilder()
-        val fontColorCheckedOut = "#AC0000"
-        val fontColorRegular = "#007F39"
-        sb.apply {
-            append("<h1><font color='#E50000'>Here is your Reservation History (${reservationHistory.size}) </font></h1>")
-            append("<br>")
-            reservationHistory.forEach {
-                var fontColorElement = "<font color='${fontColorRegular}'>"
-                if (it.rezStatus == ReservationStatus.CHECKEDOUT.code) {
-                    fontColorElement = "<font color='${fontColorCheckedOut}'>"
-                }
-
-                append("<div style=\"border-style: solid;border-color:red\">")
-                append("<b>Reservation No: </b>")
-                append(fontColorElement)
-                append("<i>\t${it.reservationNo}</i></font><br>")
-                if (it.rezStatus != ReservationStatus.CHECKEDOUT.code) {
-                    append("<b>Reservation Status: </b>")
-                    append(fontColorElement)
-                    append("<i>\t${it.rezStatus}</i></font><br>")
-                }
-                if (it.rezStatus != ReservationStatus.ARRIVING.code) {
-                    append("<b>Room No: </b>")
-                    append(fontColorElement)
-                    append("<i>\t${it.roomNo}</i></font><br>")
-                    append("<b>Checked-In at: </b>")
-                    append(fontColorElement)
-                    append("<i>\t${convertLongToDateString(it.checkedInAt ?: 0)}</i></font><br>")
+        if (!reservationHistory.isNullOrEmpty()) {
+            val fontColorCheckedOut = "#AC0000"
+            val fontColorRegular = "#007F39"
+            sb.apply {
+                append("<h1><font color='#E50000'>Here is your Reservation History (${reservationHistory.size}) </font></h1>")
+                append("<br>")
+                reservationHistory.forEach {
+                    var fontColorElement = "<font color='${fontColorRegular}'>"
                     if (it.rezStatus == ReservationStatus.CHECKEDOUT.code) {
-                        append("<b>Checked-Out at: </b>")
-                        append(fontColorElement)
-                        append("<i>\t${convertLongToDateString(it.checkedOutAt ?: 0)}</i></font><br>")
+                        fontColorElement = "<font color='${fontColorCheckedOut}'>"
                     }
+
+                    append("<div style=\"border-style: solid;border-color:red\">")
+                    append("<b>Reservation No: </b>")
+                    append(fontColorElement)
+                    append("<i>\t${it.reservationNo}</i></font><br>")
+                    if (it.rezStatus != ReservationStatus.CHECKEDOUT.code) {
+                        append("<b>Reservation Status: </b>")
+                        append(fontColorElement)
+                        append("<i>\t${it.rezStatus}</i></font><br>")
+                    }
+                    if (it.rezStatus != ReservationStatus.ARRIVING.code) {
+                        append("<b>Room No: </b>")
+                        append(fontColorElement)
+                        append("<i>\t${it.roomNo}</i></font><br>")
+                        append("<b>Checked-In at: </b>")
+                        append(fontColorElement)
+                        append("<i>\t${convertLongToDateString(it.checkedInAt ?: 0)}</i></font><br>")
+                        if (it.rezStatus == ReservationStatus.CHECKEDOUT.code) {
+                            append("<b>Checked-Out at: </b>")
+                            append(fontColorElement)
+                            append("<i>\t${convertLongToDateString(it.checkedOutAt ?: 0)}</i></font><br>")
+                        }
+                    }
+                    append("<br><br>")
+                    append("</div>")
                 }
-                append("<br><br>")
-                append("</div>")
             }
         }
-
         val returnHtml = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Html.fromHtml(sb.toString(), Html.FROM_HTML_OPTION_USE_CSS_COLORS)
         } else {

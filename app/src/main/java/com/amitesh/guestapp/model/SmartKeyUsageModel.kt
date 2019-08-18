@@ -116,26 +116,27 @@ class SmartKeyUsageModel : ViewModel() {
 
     private fun formatSmartKeyUsages(smartKeyUsages: List<SmartKeyUnlockDoor>): Spanned {
         val sb = StringBuilder()
-        sb.apply {
-            append("<h1><font color='#E50000'>Smart Key Usage Details for ${smartKeyUsages[0].reservationNo}</font></h1>")
-            append("<br>")
-            var fontColorElement = "<font color='#AC0000'>"
-            smartKeyUsages.forEach {
-                append("<div>")
-                append("<b>Room No: </b>")
-                append(fontColorElement)
-                append("<i>\t${it.roomNo}</i></font><br>")
-                append("<b>Request Id: </b>")
-                append(fontColorElement)
-                append("<i>\t${it.reqId}</i></font><br>")
-                append("<b>at </b>")
-                append(fontColorElement)
-                append("<i>\t${convertLongToDateString(it.reqTime)}</i></font><br>")
-                append("<br><br>")
-                append("</div>")
+        if (!smartKeyUsages.isNullOrEmpty()) {
+            sb.apply {
+                append("<h1><font color='#E50000'>Smart Key Usage Details for ${smartKeyUsages[0].reservationNo}</font></h1>")
+                append("<br>")
+                var fontColorElement = "<font color='#AC0000'>"
+                smartKeyUsages.forEach {
+                    append("<div>")
+                    append("<b>Room No: </b>")
+                    append(fontColorElement)
+                    append("<i>\t${it.roomNo}</i></font><br>")
+                    append("<b>Request Id: </b>")
+                    append(fontColorElement)
+                    append("<i>\t${it.reqId}</i></font><br>")
+                    append("<b>at </b>")
+                    append(fontColorElement)
+                    append("<i>\t${convertLongToDateString(it.reqTime)}</i></font><br>")
+                    append("<br><br>")
+                    append("</div>")
+                }
             }
         }
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return Html.fromHtml(sb.toString(), Html.FROM_HTML_MODE_LEGACY)
         } else {
