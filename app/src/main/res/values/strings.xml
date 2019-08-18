@@ -17,7 +17,7 @@
 
     <!-- Elements of Title Page -->
     <string name="welcome_text">Hello Mr. Guest!!</string>
-    <string name="welcome_sub_text">Welcome to Upskill Hotel</string>
+    <string name="welcome_sub_text">Welcome to Hotel Upskill</string>
     <string name="label_rez_no">Reservation No:</string>
     <string name="label_room_no">Room No:</string>
     <string name="label_check_in">Check-In at:</string>
@@ -40,7 +40,8 @@
     <string name="button_smart_key_code_share">Share Smart Key Code</string>
 
     <!-- Elements of Smart Key Code Usage Page -->
-    <string name="text_smart_key_usage_empty">Seems you have never been to your Room!!</string>
+    <string name="text_smart_key_usage_empty">Seems you have never been to your Room!!
+    \n\n Are you not Interested???</string>
 
     <!-- Elements of Reservation History Page -->
     <string name="text_rez_history_empty">No Bookings yet!!</string>
