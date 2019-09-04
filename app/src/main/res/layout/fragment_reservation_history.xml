@@ -35,7 +35,7 @@
 
             <ProgressBar
                 android:id="@+id/progressBar"
-                style="@style/MyProgressBarRectangle"
+                style="@style/MyProgressBar"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
@@ -46,6 +46,15 @@
                 android:alpha="1.0"
                 android:indeterminate="true"
                 android:translationZ="16dp" />
+
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/myTextProgress"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/loading_wait_boy" />
 
         </FrameLayout>
 

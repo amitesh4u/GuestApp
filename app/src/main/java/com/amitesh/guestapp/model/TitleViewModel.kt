@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 
 
 /**
- * The [ViewModel] that is attached to the [com.amitesh.guestapp.TitleFragment].
+ * The [ViewModel] that is attached to the [com.amitesh.guestapp.fragment.TitleFragment].
  */
 class TitleViewModel : ViewModel() {
 
@@ -113,6 +113,7 @@ class TitleViewModel : ViewModel() {
     val progressBarStatus: LiveData<Boolean> = Transformations.map(status) {
         status.value == ApiStatus.LOADING
     }
+
     /**
      * viewModelJob allows us to cancel all co-routines started by this ViewModel.
      */
@@ -134,7 +135,7 @@ class TitleViewModel : ViewModel() {
      * Call getInhouseRezDetails() on init so we can display status immediately.
      */
     init {
-        fetchRezDetails()
+        //fetchRezDetails()
     }
 
     fun fetchRezDetails() {
@@ -165,7 +166,11 @@ class TitleViewModel : ViewModel() {
                 }
             } catch (e: Exception) {
                 _status.value = ApiStatus.ERROR
-                _activeRezCallErrorStatusMessage.value = "Error Fetching Reservation details."
+                if (_currentRez.value == null) {
+                    _activeRezCallErrorStatusMessage.value = "Error Fetching Reservation details."
+                } else {
+                    _activeRezCallErrorStatusMessage.value = "Error Fetching Reservation details. Showing Cached Data."
+                }
             }
         }
     }
@@ -275,7 +280,7 @@ class TitleViewModel : ViewModel() {
         }
     }
 
-    private fun updateCurrentRez(rezResponse: GuestDetails) {
+    fun updateCurrentRez(rezResponse: GuestDetails) {
         when (rezResponse.rezStatus) {
             ReservationStatus.ARRIVING.code -> {
                 _currentRez.value = rezResponse
@@ -307,4 +312,8 @@ class TitleViewModel : ViewModel() {
         _checkOutRezCallErrorStatusMessage.value = null
         _changeRoomRezCallErrorStatusMessage.value = null
     }
+
+//    fun initializeCurrentRez(currentRez: GuestDetails) {
+//        _currentRez.value = currentRez
+//    }
 }

@@ -16,8 +16,8 @@ private const val BASE_URL = "http://amitesh4u.com/pms/service/v1/"
 
 private val okHttpClient: OkHttpClient = OkHttpClient.Builder()
     .connectTimeout(10, TimeUnit.SECONDS)
-    .readTimeout(30, TimeUnit.SECONDS)
-    .writeTimeout(15, TimeUnit.SECONDS)
+    .readTimeout(10, TimeUnit.SECONDS)
+    .writeTimeout(10, TimeUnit.SECONDS)
     .build()
 
 /**

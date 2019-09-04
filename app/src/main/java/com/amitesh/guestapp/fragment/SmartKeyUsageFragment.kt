@@ -48,7 +48,7 @@ class SmartKeyUsageFragment : Fragment() {
 //        Toast.makeText(
 //            context,
 //            "Reservation No: ${args.reservationNo}",
-//            Toast.LENGTH_LONG
+//            Toast.LENGTH_SHORT
 //        ).show()
 
         //https://support.google.com/chrome/thread/10975485?hl=en - Too Sensitive Issue
@@ -74,7 +74,7 @@ class SmartKeyUsageFragment : Fragment() {
                 Snackbar.make(
                     activity!!.findViewById(android.R.id.content),
                     it,
-                    Snackbar.LENGTH_LONG
+                    Snackbar.LENGTH_SHORT
                 ).show()
 
                 // Reset state to make sure the snackbar is only shown once, even if the device
@@ -90,7 +90,7 @@ class SmartKeyUsageFragment : Fragment() {
                 Snackbar.make(
                     activity!!.findViewById(android.R.id.content),
                     it,
-                    Snackbar.LENGTH_INDEFINITE
+                    Snackbar.LENGTH_LONG
                 ).setAction(TRY_AGAIN) {
                     // Call action functions here
                     smartKeyUsageModel.fetchSmartKeyUsage(args.reservationNo)
@@ -99,11 +99,6 @@ class SmartKeyUsageFragment : Fragment() {
                 //smartKeyUsageModel.actionComplete()
             }
         })
-    }
-
-    override fun onPause() {
-        super.onPause()
-        smartKeyUsageModel.actionComplete()
     }
 
 }

@@ -54,7 +54,7 @@ class ReservationHistoryFragment : Fragment() {
                 Snackbar.make(
                     activity!!.findViewById(android.R.id.content),
                     it,
-                    Snackbar.LENGTH_LONG
+                    Snackbar.LENGTH_SHORT
                 ).show()
 
                 // Reset state to make sure the snackbar is only shown once, even if the device
@@ -70,7 +70,7 @@ class ReservationHistoryFragment : Fragment() {
                 Snackbar.make(
                     activity!!.findViewById(android.R.id.content),
                     it,
-                    Snackbar.LENGTH_INDEFINITE
+                    Snackbar.LENGTH_LONG
                 ).setAction(TRY_AGAIN) {
                     // Call action functions here
                     reservationHistoryViewModel.fetchRezDetails()
@@ -81,8 +81,4 @@ class ReservationHistoryFragment : Fragment() {
         })
     }
 
-    override fun onPause() {
-        super.onPause()
-        reservationHistoryViewModel.actionComplete()
-    }
 }

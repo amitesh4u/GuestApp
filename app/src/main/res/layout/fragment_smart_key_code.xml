@@ -38,12 +38,12 @@
 
         <TextView
             android:id="@+id/smartKeyCodeHeaderText"
-            style="@style/SubHeaderTheme"
-            android:layout_width="wrap_content"
+            style="@style/FooterTheme"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/text_smart_key_code_header"
+            android:layout_margin="8dp"
+            android:gravity="center_horizontal"
+            android:text="@{@string/text_smart_key_code_header(smartKeyCodeModel.doorLockNo)}"
             android:visibility="@{safeUnbox(smartKeyCodeModel.eventCodeActive)}"
             app:layout_constraintBottom_toTopOf="@+id/smartKeyCodeExpiryText"
             app:layout_constraintEnd_toStartOf="parent"

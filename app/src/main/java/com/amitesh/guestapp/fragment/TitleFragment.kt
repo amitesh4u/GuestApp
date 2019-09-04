@@ -2,6 +2,8 @@ package com.amitesh.guestapp.fragment
 
 
 import android.app.AlertDialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
@@ -15,8 +17,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.amitesh.guestapp.constant.PROFILE_ID
 import com.amitesh.guestapp.databinding.FragmentTitleBinding
+import com.amitesh.guestapp.domainobject.GuestDetails
+import com.amitesh.guestapp.enm.ReservationStatus
 import com.amitesh.guestapp.model.TitleViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_title.*
@@ -38,6 +42,7 @@ class TitleFragment : Fragment() {
     }
 
     private lateinit var mHandler: Handler
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,16 +56,21 @@ class TitleFragment : Fragment() {
         // Giving the binding access to the ViewModel
         binding.titleViewModel = titleViewModel
 
+        // Fetch and update current rez from local storage if present
+        sharedPreferences = with(activity!!) { getPreferences(Context.MODE_PRIVATE) }
+
+        fetchAndUpdateCurrentRezDetails()
+
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
         binding.lifecycleOwner = this
 
         //Tell Android that our Fragment has a menu
         setHasOptionsMenu(true)
 
-        binding.pullToRefresh.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
+        binding.pullToRefresh.setOnRefreshListener {
             titleViewModel.fetchRezDetails()
             pullToRefresh.isRefreshing = false
-        })
+        }
 
         /* The complete onClickListener with Navigation using createNavigateOnClickListener.
         Navigate through NavDirections i.e. SafeARgs
@@ -88,6 +98,9 @@ class TitleFragment : Fragment() {
                 .show()
         }
 
+        // Add an Observer on the state variable for updating local storage
+        addCurrentRezObserver()
+
         // Add an Observer on the state variable for showing a Snackbar message
         addStatusMessageObserver()
 
@@ -109,13 +122,62 @@ class TitleFragment : Fragment() {
         return binding.root
     }
 
+    private fun fetchAndUpdateCurrentRezDetails() {
+        val reservationNo = with(sharedPreferences) { getString("reservationNo", null) }
+        if (reservationNo != null) {
+            val rezStatus = with(sharedPreferences) { getString("rezStatus", ReservationStatus.ARRIVING.code) }
+            val roomNo = with(sharedPreferences) { getString("roomNo", null) }
+            val checkedInAt = with(sharedPreferences) { getLong("checkedInAt", 0) }
+            val checkedOutAt = with(sharedPreferences) { getLong("checkedOutAt", 0) }
+
+            val currentRez =
+                GuestDetails(PROFILE_ID, reservationNo, rezStatus!!, roomNo, checkedInAt, checkedOutAt)
+            titleViewModel.updateCurrentRez(currentRez)
+        }
+        titleViewModel.fetchRezDetails()
+    }
+
+    private fun addCurrentRezObserver() {
+        titleViewModel.currentRez.observe(this, Observer {
+            //            if (it != null) {
+//                Snackbar.make(
+//                    activity!!.findViewById(android.R.id.content),
+//                    it.rezStatus,
+//                    Snackbar.LENGTH_SHORT
+//                ).show()
+//            } else {
+//                Snackbar.make(
+//                    activity!!.findViewById(android.R.id.content),
+//                    "No content",
+//                    Snackbar.LENGTH_SHORT
+//                ).show()
+//            }
+            updateCurrentRezDetailsInLocalStorage(it)
+        })
+    }
+
+    private fun updateCurrentRezDetailsInLocalStorage(guestDetails: GuestDetails?) {
+        val editor = sharedPreferences.edit()
+
+        if (guestDetails == null) {
+            editor.clear()
+        } else {
+            editor.putString("reservationNo", guestDetails.reservationNo)
+            editor.putString("rezStatus", guestDetails.rezStatus)
+            editor.putString("roomNo", guestDetails.roomNo)
+            editor.putLong("checkedInAt", guestDetails.checkedInAt ?: 0)
+            editor.putLong("checkedOutAt", guestDetails.checkedOutAt ?: 0)
+        }
+        editor.apply()
+    }
+
     private fun addStatusMessageObserver() {
         titleViewModel.statusMessage.observe(this, Observer {
             if (!TextUtils.isEmpty(it)) { // Observed state is true.
                 Snackbar.make(
                     activity!!.findViewById(android.R.id.content),
                     it,
-                    Snackbar.LENGTH_LONG
+                    Snackbar.LENGTH_SHORT
                 ).show()
 
                 // Reset state to make sure the snackbar is only shown once, even if the device
@@ -131,7 +193,7 @@ class TitleFragment : Fragment() {
                 Snackbar.make(
                     activity!!.findViewById(android.R.id.content),
                     it,
-                    Snackbar.LENGTH_INDEFINITE
+                    Snackbar.LENGTH_LONG
                 ).setAction(TRY_AGAIN) {
                     // Call action functions here
                     titleViewModel.fetchRezDetails()
@@ -148,7 +210,7 @@ class TitleFragment : Fragment() {
                 Snackbar.make(
                     activity!!.findViewById(android.R.id.content),
                     it,
-                    Snackbar.LENGTH_INDEFINITE
+                    Snackbar.LENGTH_LONG
                 ).setAction(TRY_AGAIN) {
                     // Call action functions here
                     titleViewModel.createNewReservation()
@@ -165,7 +227,7 @@ class TitleFragment : Fragment() {
                 Snackbar.make(
                     activity!!.findViewById(android.R.id.content),
                     it,
-                    Snackbar.LENGTH_INDEFINITE
+                    Snackbar.LENGTH_LONG
                 ).setAction(TRY_AGAIN) {
                     // Call action functions here
                     titleViewModel.checkInReservation()
@@ -182,7 +244,7 @@ class TitleFragment : Fragment() {
                 Snackbar.make(
                     activity!!.findViewById(android.R.id.content),
                     it,
-                    Snackbar.LENGTH_INDEFINITE
+                    Snackbar.LENGTH_LONG
                 ).setAction(TRY_AGAIN) {
                     // Call action functions here
                     titleViewModel.checkOutReservation()
@@ -199,7 +261,7 @@ class TitleFragment : Fragment() {
                 Snackbar.make(
                     activity!!.findViewById(android.R.id.content),
                     it,
-                    Snackbar.LENGTH_INDEFINITE
+                    Snackbar.LENGTH_LONG
                 ).setAction(TRY_AGAIN) {
                     // Call action functions here
                     titleViewModel.changeRoomOfReservation()
@@ -248,14 +310,15 @@ class TitleFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 //        titleViewModel.fetchRezDetails()
-        doTheAutoRefresh()
+        //       doTheAutoRefresh()
+        fetchAndUpdateCurrentRezDetails()
         Log.i("TitleFragment", "onResume Called")
     }
 
     override fun onPause() {
         super.onPause()
-        titleViewModel.actionComplete()
-        mHandler.removeCallbacks(mRunnable)
+//        titleViewModel.actionComplete()
+//        mHandler.removeCallbacks(mRunnable)
         Log.i("TitleFragment", "onPause Called")
     }
 

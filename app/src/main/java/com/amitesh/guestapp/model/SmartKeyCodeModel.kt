@@ -63,6 +63,9 @@ class SmartKeyCodeModel : ViewModel() {
     val eventBuzz: LiveData<BuzzType>
         get() = _eventBuzz
 
+    var rezNo = ""
+    var doorLockNo = ""
+
     init {
         // Creates a timer which triggers the end of the game when it finishes
         timer = object : CountDownTimer(COUNTDOWN_TIME, ONE_SECOND) {

@@ -4,48 +4,285 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".fragment.GuestServicesFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/guestServicesConstraintLayout"
+    <ScrollView
+        android:id="@+id/aboutScrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/guestServiceText"
-            style="@style/HeaderTheme"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/guestServicesConstraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/text_guest_services"
-            app:layout_constraintBottom_toTopOf="@+id/underConstructionGIV"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:fillViewport="true">
 
-        <pl.droidsonroids.gif.GifImageView
-            android:id="@+id/underConstructionGIV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/horizontal_margin"
-            android:layout_marginEnd="@dimen/horizontal_margin"
-            android:scaleType="fitCenter"
-            android:src="@drawable/under_construction_1"
-            app:layout_constraintBottom_toTopOf="@+id/underConstructionText"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/guestServiceText" />
+            <TextView
+                android:id="@+id/guestServiceText"
+                style="@style/HeaderTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:layout_marginBottom="@dimen/size_16dp"
+                android:gravity="center_horizontal"
+                android:text="@string/text_guest_services"
+                app:layout_constraintBottom_toTopOf="@+id/wakeupCallCV"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/underConstructionText"
-            style="@style/HeaderTheme"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/text_under_construction"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/underConstructionGIV" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/wakeupCallCV"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                app:cardCornerRadius="3dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintBottom_toTopOf="@+id/orderFoodCV"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/guestServiceText">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/wakeupCallTV"
+                    style="@style/PanelHeaderTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:elevation="2dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:text="@string/wake_up_calls" />
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="16dp"
+                    android:baselineAlignBottom="true"
+                    android:contentDescription="@string/wake_up_calls"
+                    android:src="@drawable/red_arrow_right_512"
+                    app:layout_constraintBottom_toBottomOf="@id/wakeupCallTV"
+                    app:layout_constraintStart_toEndOf="@+id/wakeupCallTV"
+                    app:layout_constraintTop_toTopOf="@id/wakeupCallTV" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/orderFoodCV"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                app:cardCornerRadius="3dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintBottom_toTopOf="@+id/housekeepingCV"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/wakeupCallCV">
+
+
+                <TextView
+                    android:id="@+id/orderFoodTV"
+                    style="@style/PanelHeaderTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:elevation="2dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:text="@string/order_food_beverages" />
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="16dp"
+                    android:baselineAlignBottom="true"
+                    android:contentDescription="@string/order_food_beverages"
+                    android:src="@drawable/red_arrow_right_512"
+                    app:layout_constraintBottom_toBottomOf="@id/orderFoodTV"
+                    app:layout_constraintStart_toEndOf="@+id/orderFoodTV"
+                    app:layout_constraintTop_toTopOf="@id/orderFoodTV" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/housekeepingCV"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                app:cardCornerRadius="3dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintBottom_toTopOf="@+id/transportationCV"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/orderFoodCV">
+
+
+                <TextView
+                    android:id="@+id/housekeepingTV"
+                    style="@style/PanelHeaderTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:elevation="2dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:text="@string/house_keeping" />
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="16dp"
+                    android:baselineAlignBottom="true"
+                    android:contentDescription="@string/house_keeping"
+                    android:src="@drawable/red_arrow_right_512"
+                    app:layout_constraintBottom_toBottomOf="@id/housekeepingTV"
+                    app:layout_constraintStart_toEndOf="@+id/housekeepingTV"
+                    app:layout_constraintTop_toTopOf="@id/housekeepingTV" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/transportationCV"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                app:cardCornerRadius="3dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintBottom_toTopOf="@+id/facilitiesCV"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/housekeepingCV">
+
+
+                <TextView
+                    android:id="@+id/transportationTV"
+                    style="@style/PanelHeaderTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:elevation="2dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:text="@string/transportation" />
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="16dp"
+                    android:baselineAlignBottom="true"
+                    android:contentDescription="@string/transportation"
+                    android:src="@drawable/red_arrow_right_512"
+                    app:layout_constraintBottom_toBottomOf="@id/transportationTV"
+                    app:layout_constraintStart_toEndOf="@+id/transportationTV"
+                    app:layout_constraintTop_toTopOf="@id/transportationTV" />
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/facilitiesCV"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                app:cardCornerRadius="3dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintBottom_toTopOf="@+id/meetingsCV"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/transportationCV">
+
+
+                <TextView
+                    android:id="@+id/facilitiesTV"
+                    style="@style/PanelHeaderTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:elevation="2dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:text="@string/hotel_facilities" />
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="16dp"
+                    android:baselineAlignBottom="true"
+                    android:contentDescription="@string/hotel_facilities"
+                    android:src="@drawable/red_arrow_right_512"
+                    app:layout_constraintBottom_toBottomOf="@id/facilitiesTV"
+                    app:layout_constraintStart_toEndOf="@+id/facilitiesTV"
+                    app:layout_constraintTop_toTopOf="@id/facilitiesTV" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/meetingsCV"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                app:cardCornerRadius="3dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/wakeupCallCV">
+
+
+                <TextView
+                    android:id="@+id/meetingsTV"
+                    style="@style/PanelHeaderTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:elevation="2dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:text="@string/banquets_meetings" />
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="16dp"
+                    android:baselineAlignBottom="true"
+                    android:contentDescription="@string/banquets_meetings"
+                    android:src="@drawable/red_arrow_right_512"
+                    app:layout_constraintBottom_toBottomOf="@id/meetingsTV"
+                    app:layout_constraintStart_toEndOf="@+id/meetingsTV"
+                    app:layout_constraintTop_toTopOf="@id/meetingsTV" />
+
+            </androidx.cardview.widget.CardView>
+
+            <!--<pl.droidsonroids.gif.GifImageView-->
+            <!--android:id="@+id/underConstructionGIV"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="@dimen/horizontal_margin"-->
+            <!--android:layout_marginEnd="@dimen/horizontal_margin"-->
+            <!--android:scaleType="fitCenter"-->
+            <!--android:src="@drawable/under_construction_1"-->
+            <!--app:layout_constraintBottom_toTopOf="@+id/underConstructionText"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/guestServiceText" />-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/underConstructionText"-->
+            <!--style="@style/HeaderTheme"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:text="@string/text_under_construction"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/meetingsCV" />-->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

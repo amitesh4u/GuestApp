@@ -86,4 +86,7 @@ dependencies {
 
     //Gif image
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.17'
+
+    //CardView
+    implementation "com.android.support:cardview-v7:$version_cardview"
 }

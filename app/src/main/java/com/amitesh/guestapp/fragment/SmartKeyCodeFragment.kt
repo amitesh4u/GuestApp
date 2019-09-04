@@ -67,6 +67,9 @@ class SmartKeyCodeFragment : Fragment() {
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
         binding.lifecycleOwner = this
 
+        smartKeyCodeModel.rezNo = args.reservationNo
+        smartKeyCodeModel.doorLockNo = args.roomNo
+
 
         binding.shareSmartKeyCodeButton.setOnClickListener {
             shareSmartKeyCode()
@@ -74,7 +77,7 @@ class SmartKeyCodeFragment : Fragment() {
         Toast.makeText(
             context,
             "Reservation No: ${args.reservationNo} and Room No: ${args.roomNo}",
-            Toast.LENGTH_LONG
+            Toast.LENGTH_SHORT
         ).show()
 
         generateCode(binding)
@@ -99,7 +102,7 @@ class SmartKeyCodeFragment : Fragment() {
                 Snackbar.make(
                     activity!!.findViewById(android.R.id.content),
                     "New Code generated for Reservation No: ${args.reservationNo} and Room No: ${args.roomNo}",
-                    Snackbar.LENGTH_LONG
+                    Snackbar.LENGTH_SHORT
                 ).show()
             }
         })

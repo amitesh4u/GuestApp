@@ -35,7 +35,7 @@
 
     <!-- Elements of Smart Key Code Page -->
     <string name="text_smart_key_code_expired">Your code has expired. Re&#8211;generating&#8230;</string>
-    <string name="text_smart_key_code_header">Please scan this Code to Door Lock</string>
+    <string name="text_smart_key_code_header">Please scan this Code to Door Lock %s</string>
     <string name="text_smart_key_code_expiry_times">Your code will expire in</string>
     <string name="button_smart_key_code_share">Share Smart Key Code</string>
 
@@ -91,8 +91,14 @@
 
     <!-- Elements of Dummy Pages -->
     <string name="text_payment">Payment Methods and History</string>
-    <string name="text_guest_services">Guest Messages\nWake&#8211;up calls</string>
-    <string name="text_support">Help and Support\nFor you, With You!!</string>
+    <string name="text_guest_services">Concierge Services</string>
+    <string name="text_support">Help and Support\n\n\nFor you, With You!!</string>
     <string name="text_under_construction">Under Construction!!</string>
+    <string name="wake_up_calls">Wake–Up Calls</string>
+    <string name="order_food_beverages"><![CDATA[Order Food & Beverages]]></string>
+    <string name="house_keeping">House–Keeping</string>
+    <string name="transportation">Transportation</string>
+    <string name="hotel_facilities">Hotel Facilities</string>
+    <string name="banquets_meetings"><![CDATA[Banquets & Meetings]]></string>
 
 </resources>
