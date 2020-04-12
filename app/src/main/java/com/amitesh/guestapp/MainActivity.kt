@@ -1,5 +1,6 @@
 package com.amitesh.guestapp
 
+import android.Manifest
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.os.Bundle
@@ -26,13 +27,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), 0)
-        }
+        /* Check and Request for External Storgae permission */
+        checkAndRequestPermission()
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
@@ -45,6 +41,16 @@ class MainActivity : AppCompatActivity() {
 //        NavigationUI.setupActionBarWithNavController(this, navController)
 
         // prevent nav gesture if not on start destination
+        preventNavGestureFromNonStartDestination(navController)
+
+        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
+        appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
+
+        NavigationUI.setupWithNavController(binding.navView, navController)
+
+    }
+
+    private fun preventNavGestureFromNonStartDestination(navController: NavController) {
         navController.addOnDestinationChangedListener { nc: NavController, nd: NavDestination, _: Bundle? ->
             if (nd.id == nc.graph.startDestination) {
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
@@ -52,10 +58,20 @@ class MainActivity : AppCompatActivity() {
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             }
         }
-        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
-        appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
-        NavigationUI.setupWithNavController(binding.navView, navController)
+    }
 
+    private fun checkAndRequestPermission() {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                0
+            )
+        }
     }
 
     //    /* Adding logic for double Back press before exit */

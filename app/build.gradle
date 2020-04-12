@@ -5,6 +5,7 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'kotlin-kapt'
 
 android {
+    //minSdkVersion (lowest possible) <= targetSdkVersion == compileSdkVersion (latest SDK)
     compileSdkVersion 28
     buildToolsVersion "29.0.2"
     defaultConfig {
