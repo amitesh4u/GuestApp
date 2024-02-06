@@ -1,2 +1,2 @@
 # GuestApp
-Sample App for a PMS application with QR Code as Door Key
+Sample Android App for a PMS application with QR Code as Door Key
